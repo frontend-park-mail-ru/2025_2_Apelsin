@@ -5,8 +5,6 @@ export class registrationEmail {
     #email;
     #submitBtn;
     #nextCallback;
-    #prevCallback;
-
     /**
      * Конструктор класса
      * @param parent {HTMLElement} - родительский элемент
@@ -17,7 +15,6 @@ export class registrationEmail {
     constructor(parent, nextCallback, prevCallback) {
         this.#parent = parent;
         this.#nextCallback = nextCallback;
-        this.#prevCallback = prevCallback;
     }
 
     get self() {
@@ -41,7 +38,6 @@ export class registrationEmail {
     }
 
     #switch = () => {
-        console.log("SWITCH")
         if (store.auth.type === "company") {
             store.auth.type = "user"
         } else {
@@ -65,8 +61,6 @@ export class registrationEmail {
 
     #formNameRender = () => {
         const formName = this.self.querySelector(".form__name")
-        console.log("FORM NAME")
-        console.log(formName)
         if (store.auth.type === "company") {
             formName.textContent = "Поиск сотрудников"
         } else {
@@ -79,9 +73,7 @@ export class registrationEmail {
      * Валидация введенных данных
      */
     #emailValidate = () => {
-        console.log("EMAIL VALIDATE")
         const error = this.self.querySelector(".form__error")
-        console.log(this.#email.value.split(""))
         if (this.#email.validity.valid === false) {
             error.hidden = false
             error.textContent = "Напишите валидный адрес почты"
@@ -104,9 +96,6 @@ export class registrationEmail {
         this.#email = form.elements["email"]
         this.#submitBtn = form.elements["submit"]
 
-        console.log("EMAIL", this.#email)
-
-        form.querySelector(".form__back").addEventListener("click", this.#prevCallback)
         document.querySelectorAll(".under_link").forEach(element => {
             element.addEventListener("click", this.#switch);
         })

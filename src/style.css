@@ -10,7 +10,7 @@ body {
 /* Общие стили для форм */
 .form {
   min-width: 300px;
-max-width: 600px;
+  max-width: 600px;
   padding: 20px;
   border: 1px solid #CFCFCF;
   border-radius: 30px;
@@ -18,7 +18,7 @@ max-width: 600px;
 }
 
 form {
-position: relative;
+  position: relative;
   flex-direction: column;
 }
 
@@ -32,43 +32,46 @@ position: relative;
 }
 
 .form__name {
+  font-weight: bold;
   font-size: 20px;
   padding: 10px;
   text-align: center;
-margin-top: 30px;
+  margin-top: 30px;
 }
 
 .form__description {
-font-size: 14px;
-margin-top: 5px;
-text-align: center;
+  font-size: 14px;
+  margin-top: 5px;
+  text-align: center;
 }
 
 .form__email {
-font-size: 16px;
-padding: 5px;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 5px;
 }
 
 .form__input {
-margin-top: 20px;
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
-gap: 20px;
+  gap: 20px;
 }
 
 .form__input input {
   padding: 15px 10px;
   border: 1px solid #AAAAB3;
-  color: #CFCFCF;
+  color: #A1A1A1;
+  font-size: 14px;
   border-radius: 10px;
 }
 
 .form__input input::placeholder {
-font-size: 14px;
+  font-size: 14px;
   color: #CFCFCF;
 }
 
-.form__input input:focus{
+.form__input input:focus {
   outline: 0;
   border: 1px solid #0071FE;
 }
@@ -77,28 +80,32 @@ font-size: 14px;
   border: 1px solid #FB0102;
 }
 
+.form__input_error:focus {
+  border: 1px solid #FB0102;
+}
+
 .form__error {
   color: #FB0102;
 }
 
 .form__link {
-display: inline-block;
-text-decoration: none;
-padding: 10px 0px;
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 0px;
   font-size: 14px;
   color: #0071FE;
 }
 
 .form__checkbox {
-display: grid;
+  display: grid;
   grid-template-columns: 1em auto;
   gap: 0.5em;
-padding: 10px 0px;
-margin-top: 5px;
+  padding: 10px 0px;
+  margin-top: 5px;
 }
 
 .form__checkbox input {
-margin: 0px;
+  margin: 0px;
 }
 
 .form__button {
@@ -110,7 +117,7 @@ margin: 0px;
   color: #fff;
   font-size: 18px;
   width: 100%;
-margin-top: 10px;
+  margin-top: 10px;
 }
 
 .under_link {
@@ -119,5 +126,5 @@ margin-top: 10px;
   color: #0071FE;
   text-decoration: none;
   margin-top: 12px;
-padding: 10px;
+  padding: 10px;
 }
