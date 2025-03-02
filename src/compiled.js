@@ -1,10 +1,25 @@
 (function() {
   var template = Handlebars.template, templates = Handlebars.templates = Handlebars.templates || {};
+templates['404/404'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "";
+},"useData":true});
 templates['auth/auth'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     return "<div id=\"auth\">\r\n\r\n</div>";
 },"useData":true});
+templates['jobCard/jobCard'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "";
+},"useData":true});
+templates['jobCatalog/jobCatalog'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "";
+},"useData":true});
+templates['login/login'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "";
+},"useData":true});
+templates['main/main'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
+    return "";
+},"useData":true});
 templates['registrationCompany/registrationCompany'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    return "<form class=\"form\" name=\"registration_company\">\r\n    <div class=\"form__back\">&#10094;</div>\r\n        <div class=\"form__name\">О компании</div>\r\n        <div class=\"form__input\">\r\n            <input type=\"text\" placeholder=\"название компании\" name=\"company_name\" minlength=\"2\" required>\r\n            <input type=\"text\" placeholder=\"юридический адрес\" name=\"company_address\" minlength=\"10\" required>\r\n        </div>\r\n        <div class=\"form__error\">\r\n\r\n        </div>\r\n    <button type=\"submit\" class=\"form__button\" name=\"submit\">Зарегестрироваться</button>\r\n</form>";
+    return "<form class=\"form\" name=\"registration_company\">\r\n    <div class=\"form__back\">&#10094;</div>\r\n        <div class=\"form__name\">О компании</div>\r\n        <div class=\"form__input\">\r\n            <input type=\"text\" placeholder=\"название компании\" name=\"company_name\" minlength=\"2\" required>\r\n            <input type=\"text\" placeholder=\"юридический адрес\" name=\"company_address\" minlength=\"10\" required>\r\n        </div>\r\n        <div class=\"form__error\">\r\n\r\n        </div>\r\n    <button type=\"submit\" class=\"form__button\" name=\"submit\">Зарегистрироваться</button>\r\n</form>";
 },"useData":true});
 templates['registrationEmail/registrationEmail'] = template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {

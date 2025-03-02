@@ -1,7 +1,6 @@
 #compiled
-src/compiled.js
-src/templates.zip
-resumatch.zip
+./src/compiled.js
+*.zip
 
 # Logs
 logs

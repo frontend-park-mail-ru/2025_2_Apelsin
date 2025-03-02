@@ -1,5 +1,10 @@
 import store from "../../store";
 
+
+/**
+ * @class
+ * @classdesc Форма авторизации. Возникает если при регистрации указать 
+ */
 export class login {
     #parent;
     #submitBtn;
@@ -10,7 +15,10 @@ export class login {
 
     /**
      * Конструктор класса
+     * @constructor
      * @param parent {HTMLElement} - родительский элемент
+     * @param nextCallback {function} - калбек на следующую форму
+     * @param prevCallback {function} - калбек на предыдущую форму
      */
     constructor(parent, nextCallback, prevCallback) {
         this.#parent = parent;

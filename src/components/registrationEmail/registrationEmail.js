@@ -12,13 +12,13 @@ export class registrationEmail {
      * @param nextCallback {function} - Вызов следующей формы
      * @param prevCallback {function} - Вызов предыдущей формы
      */
-    constructor(parent, nextCallback, prevCallback) {
+    constructor(parent, nextCallback) {
         this.#parent = parent;
         this.#nextCallback = nextCallback;
     }
 
     get self() {
-        return document.forms.registration_email
+        return document.forms["registration_email"]
     }
 
     getEmail = () => {
@@ -116,7 +116,7 @@ export class registrationEmail {
      */
     remove = () => {
         this.self.remove();
-        document.querySelectorAll("under_link").forEach(element, () => {
+        document.querySelectorAll("under_link").forEach((element) => {
             element.remove();
         })
     }

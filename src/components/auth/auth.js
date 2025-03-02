@@ -85,7 +85,7 @@ export class auth {
             template()
         );
         if (this.#regEmail === undefined) {
-            this.#regEmail = new registrationEmail(this.self, this.#nextCallback, this.#prevCallback)
+            this.#regEmail = new registrationEmail(this.self, this.#nextCallback)
             this.#regEmail.render();
             this.#regEmail.hide();
             this.#regPassword = new registrationPassword(this.self, this.#nextCallback, this.#prevCallback)
