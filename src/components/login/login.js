@@ -39,9 +39,9 @@ export class login {
     #checkPassword(str) {
         for (let i = 0; i < str.length; i++) {
             const char = str.charCodeAt(i);
-            if (!((48 <= char >= 48 && char <= 57) ||
-                (char >= 65 && char <= 90) ||
-                (char >= 97 && char <= 122))) {
+            if (!((48 <= char && char <= 57) ||
+                (65 <= char && char <= 90) ||
+                (97 <= char && char <= 122))) {
                 return false;
             }
         }
@@ -53,12 +53,14 @@ export class login {
     #passwordValidate = () => {
         const error = this.self.querySelector(".form__error")
         if (this.#password.validity.valid === false) {
+            this.#password.classList.remove("form__valid")
             this.#password.classList.add("form__input_error")
             error.hidden = false
             error.textContent = "Пароль должен содержать минимум 10 символов"
             return false
         }
         if (this.#checkPassword(this.#password.value) === false) {
+            this.#password.classList.remove("form__valid")
             this.#password.classList.add("form__input_error")
             error.hidden = false
             error.textContent = "Пароль может содержать только латинские буквы и цифры"

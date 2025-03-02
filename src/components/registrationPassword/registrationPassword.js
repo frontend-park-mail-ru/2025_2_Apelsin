@@ -40,9 +40,9 @@ export class registrationPassword {
     #checkPassword(str) {
         for (let i = 0; i < str.length; i++) {
             const char = str.charCodeAt(i);
-            if (!((48 <= char >= 48 && char <= 57) ||
-                (char >= 65 && char <= 90) ||
-                (char >= 97 && char <= 122))) {
+            if (!((48 <= char && char <= 57) ||
+                (65 <= char && char <= 90) ||
+                (97 <= char && char <= 122))) {
                 return false;
             }
         }
