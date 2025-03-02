@@ -4,77 +4,120 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  margin: 0;
+  gap: 30px;
 }
 
 /* Общие стили для форм */
 .form {
-  max-width: 600px;
+  min-width: 300px;
+max-width: 600px;
   padding: 20px;
   border: 1px solid #CFCFCF;
-  border-radius: 10px;
-margin: auto;
-}
-
-.form__name {
-font-size: 22px;
-margin-bottom: 15px;
+  border-radius: 30px;
+  margin: auto;
 }
 
 form {
-display: flex;
+position: relative;
   flex-direction: column;
-  gap: 15px;
+}
+
+.form__back {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.form__name {
+  font-size: 20px;
+  padding: 10px;
+  text-align: center;
+margin-top: 30px;
+}
+
+.form__description {
+font-size: 14px;
+margin-top: 5px;
+text-align: center;
+}
+
+.form__email {
+font-size: 16px;
+padding: 5px;
 }
 
 .form__input {
-display: flex;
-flex-direction: column;
-  gap: 5px;
+margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+gap: 20px;
 }
 
 .form__input input {
-  padding: 10px;
+  padding: 15px 10px;
   border: 1px solid #AAAAB3;
-color: #CFCFCF;
-  border-radius: 5px;
-  font-size: 14px;
+  color: #CFCFCF;
+  border-radius: 10px;
 }
 
-::placeholder {
-color: #CFCFCF;
-}
-
-
-.form__input small {
-  font-size: 12px;
+.form__input input::placeholder {
+font-size: 14px;
   color: #CFCFCF;
 }
 
-.form__radio_group {
-  display: flex;
-  gap: 15px;
-  margin-bottom: 10px;
-justify-content: space-between;
+.form__input input:focus{
+  outline: 0;
+  border: 1px solid #0071FE;
+}
+
+.form__input_error {
+  border: 1px solid #FB0102;
+}
+
+.form__error {
+  color: #FB0102;
+}
+
+.form__link {
+display: inline-block;
+text-decoration: none;
+padding: 10px 0px;
+  font-size: 14px;
+  color: #0071FE;
+}
+
+.form__checkbox {
+display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+padding: 10px 0px;
+margin-top: 5px;
+}
+
+.form__checkbox input {
+margin: 0px;
 }
 
 .form__button {
-cursor: pointer;
-  padding: 10px 15px;
-margin-right: 12px;
+  cursor: pointer;
+  padding: 15px 10px;
   border: none;
   border-radius: 10px;
   background-color: #0071FE;
   color: #fff;
-font-size: 16px;
+  font-size: 18px;
+  width: 100%;
+margin-top: 10px;
 }
 
-.form__footer a {
-color: #0071FE;
+.under_link {
+  cursor: pointer;
+  text-align: center;
+  color: #0071FE;
   text-decoration: none;
-}
-
-.form__footer a:hover {
-  text-decoration: underline;
+  margin-top: 12px;
+padding: 10px;
 }

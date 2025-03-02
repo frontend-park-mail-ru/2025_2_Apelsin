@@ -1,6 +1,7 @@
+import store from "../../store";
+
 export class registrationEmail {
     #parent;
-    #type;
     #email;
     #submitBtn;
     #nextCallback;
@@ -13,9 +14,8 @@ export class registrationEmail {
      * @param nextCallback {function} - Вызов следующей формы
      * @param prevCallback {function} - Вызов предыдущей формы
      */
-    constructor(parent, type, nextCallback, prevCallback) {
+    constructor(parent, nextCallback, prevCallback) {
         this.#parent = parent;
-        this.#type = type;
         this.#nextCallback = nextCallback;
         this.#prevCallback = prevCallback;
     }
@@ -24,67 +24,82 @@ export class registrationEmail {
         return document.forms.registration_email
     }
 
-    getType() {
-        return this.#type
-    }
-
-    getEmail() {
+    getEmail = () => {
         return this.#email
     }
 
-    hide() {
+    hide = () => {
         this.self.hidden = true
+        document.querySelectorAll(".under_link").forEach(element => {
+            element.hidden = true
+        })
     }
 
-    show() {
+    show = () => {
         this.self.hidden = false
+        this.#under_link()
     }
 
-    #switch() {
+    #switch = () => {
         console.log("SWITCH")
-        if (this.#type === "company") {
-            this.#type = "user"
+        if (store.auth.type === "company") {
+            store.auth.type = "user"
         } else {
-            this.#type = "company"
+            store.auth.type = "company"
         }
         this.#under_link();
+        this.#formNameRender();
     }
 
-    #under_link() {
+    #under_link = () => {
         const companyLink = document.getElementById("i_need_users")
         const userLink = document.getElementById("i_need_job")
-        if (this.#type === "company") {
-            companyLink.hidden = false
-            userLink.hidden = true
-        } else {
+        if (store.auth.type === "company") {
             companyLink.hidden = true
             userLink.hidden = false
+        } else {
+            companyLink.hidden = false
+            userLink.hidden = true
+        }
+    }
+
+    #formNameRender = () => {
+        const formName = this.self.querySelector(".form__name")
+        console.log("FORM NAME")
+        console.log(formName)
+        if (store.auth.type === "company") {
+            formName.textContent = "Поиск сотрудников"
+        } else {
+            formName.textContent = "Поиск работы"
+
         }
     }
 
     /**
      * Валидация введенных данных
      */
-    #emailValidate() {
+    #emailValidate = () => {
         console.log("EMAIL VALIDATE")
         const error = this.self.querySelector(".form__error")
         console.log(this.#email.value.split(""))
         if (this.#email.validity.valid === false) {
             error.hidden = false
             error.textContent = "Напишите валидный адрес почты"
+            this.#email.classList.add("form__input_error")
             return false
         } 
         if (this.#email.value.split("").indexOf(".") === -1) {
             error.hidden = false
             error.textContent = "Напишите валидный адрес почты"
+            this.#email.classList.add("form__input_error")
             return false
         }
         error.hidden = true
-        this.#email.classList.add("form__valid")
+        this.#email.classList.remove("form__valid")
         return true
     }
 
-    #addEventListeners() {
+    #addEventListeners = () => {
         const form = this.self
         this.#email = form.elements["email"]
         this.#submitBtn = form.elements["submit"]
@@ -101,6 +116,7 @@ export class registrationEmail {
         this.#submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
             if (this.#emailValidate() === true) {
+                store.auth.email = this.#email.value
                 this.#nextCallback()
             }
         })
@@ -109,7 +125,7 @@ export class registrationEmail {
     /**
      * Очистка
      */
-    remove() {
+    remove = () => {
         this.self.remove();
         document.querySelectorAll("under_link").forEach(element, () => {
             element.remove();
@@ -119,7 +135,7 @@ export class registrationEmail {
     /**
      * Рендеринг формы
      */
-    render() {
+    render = () => {
         console.log("register form render");
 
         const template = Handlebars.templates["registrationEmail/registrationEmail"]
@@ -127,10 +143,11 @@ export class registrationEmail {
             "beforeend",
             template(
                 {
-                    "type": this.#type,
+                    "type": store.auth.type,
                 }
             )
         );
+        this.#formNameRender();
         this.#under_link();
         this.#addEventListeners();
     }
