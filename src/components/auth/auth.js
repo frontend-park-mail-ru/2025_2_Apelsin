@@ -3,6 +3,7 @@ import store from "../../store";
 import { registrationPassword } from "../registrationPassword/registrationPassword";
 import { registrationCompany } from "../registrationCompany/registrationCompany";
 import { registrationUser } from "../registrationUser/registrationUser";
+import { login } from "../login/login";
 
 export class auth {
     #parent;
@@ -29,14 +30,13 @@ export class auth {
     #nextCallback = () => {
         this.#history.push(store.page);
         if (store.page === "regEmail") {
-            //Сделать запрос на сервер проверку существования почты
-            this.#regEmail.hide()
+            this.#regEmail.remove()
             store.page = "regPassword"
             this.render()
             return
         }
         if (store.page === "regPassword") {
-            this.#regPassword.hide()
+            this.#regPassword.remove()
             if (store.auth.type === "company") {
                 store.page = "regCompany"
             } else {
@@ -45,22 +45,36 @@ export class auth {
             this.render()
             return
         }
+        if (store.page === "regCompany") {
+            this.#regCompany.remove()
+            store.page = "login"
+            this.render()
+            return
+        }
+        if (store.page === "regUser") {
+            this.#regUser.remove()
+            store.page = "login"
+            this.render()
+            return
+        }
+
+        if (store.page === "login")
         console.log("NEXT")
     }
 
     #prevCallback = () => {
         console.log(store.page)
         if (store.page === "regEmail") {
-            this.#regEmail.hide();
+            this.#regEmail.remove();
         }
         if (store.page === "regPassword") {
-            this.#regPassword.hide();
+            this.#regPassword.remove();
         }
         if (store.page === "regCompany") {
-            this.#regCompany.hide();
+            this.#regCompany.remove();
         }
         if (store.page === "regUser") {
-            this.#regUser.hide();
+            this.#regUser.remove();
         }
         store.page = this.#history.pop()
         this.render()
@@ -79,36 +93,33 @@ export class auth {
      */
     render() {
         console.log("register form render");
-        const template = Handlebars.templates["auth/auth"]
-        this.#parent.insertAdjacentHTML(
-            "beforeend",
-            template()
-        );
-        if (this.#regEmail === undefined) {
-            this.#regEmail = new registrationEmail(this.self, this.#nextCallback)
-            this.#regEmail.render();
-            this.#regEmail.hide();
-            this.#regPassword = new registrationPassword(this.self, this.#nextCallback, this.#prevCallback)
-            this.#regPassword.render();
-            this.#regPassword.hide();
-            this.#regCompany = new registrationCompany(this.self, this.#nextCallback, this.#prevCallback)
-            this.#regCompany.render();
-            this.#regCompany.hide();
-            this.#regUser = new registrationUser(this.self, this.#nextCallback, this.#prevCallback)
-            this.#regUser.render();
-            this.#regUser.hide();
+        if (this.self === null) {
+            // eslint-disable-next-line no-undef
+            const template = Handlebars.templates["auth/auth"]
+            this.#parent.insertAdjacentHTML(
+                "beforeend",
+                template()
+            );
         }
         if (store.page === "regEmail") {
-            this.#regEmail.show();
+            this.#regEmail = new registrationEmail(this.self, this.#nextCallback)
+            this.#regEmail.render();
         }
         if (store.page === "regPassword") {
-            this.#regPassword.show();
+            this.#regPassword = new registrationPassword(this.self, this.#nextCallback, this.#prevCallback)
+            this.#regPassword.render();
         }
         if (store.page === "regCompany") {
-            this.#regCompany.show();
+            this.#regCompany = new registrationCompany(this.self, this.#nextCallback, this.#prevCallback)
+            this.#regCompany.render();
         }
         if (store.page === "regUser") {
-            this.#regUser.show();
+            this.#regUser = new registrationUser(this.self, this.#nextCallback, this.#prevCallback)
+            this.#regUser.render();
+        }
+        if (store.page === "login") {
+            this.#login = new login(this.self, this.#nextCallback, this.#prevCallback)
+            this.#login.render()
         }
     }
 }

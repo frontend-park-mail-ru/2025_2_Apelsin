@@ -124,6 +124,7 @@ export class registrationPassword {
      */
     render = () => {
         console.log("register form render");
+        // eslint-disable-next-line no-undef
         const template = Handlebars.templates["registrationPassword/registrationPassword"]
         this.#parent.insertAdjacentHTML(
             "beforeend",

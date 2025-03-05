@@ -1,0 +1,122 @@
+
+
+.job {
+    border: 1px solid #CFCFCF;
+	position: relative;
+    border-radius: 15px;
+    min-width: 800px;
+    display: flex;
+    overflow: hidden;
+	padding: 10px 10px 10px 15px;
+}
+
+.job__favorite {
+	position: absolute;
+    right: 20px;
+    top: 20px;
+	font-size: 20px;
+}
+
+.job__favorite img {
+	cursor: pointer;
+	width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.job__avatar {
+	padding: 10px;
+}
+
+.job__avatar img {
+    width: 100px;
+    height: 100px;
+    border-radius: 10px;
+    object-fit: contain;
+}
+
+.job__info {
+	flex-grow: 1;
+	padding: 10px;
+}
+
+.job__name {
+	cursor: pointer;
+    margin: 10px 0;
+    font-size: 20px;
+}
+
+.job__salary {
+    margin-bottom: 20px;
+	font-size: 20px;
+}
+
+.job__company {
+    margin: 0 0 15px;
+	font-size: 20px;
+}
+
+.job__city img {
+	width: 18px;
+	height: 18px;
+	object-fit: contain;
+	margin-right: 5px;
+}
+
+.job__city {
+	display: inline-block;
+}
+
+.job__advantages {
+	display: flex;
+	align-items: center;
+	gap: 30px;
+}
+
+.job__badges {
+	display: flex;
+	gap: 15px;
+}
+
+.job__badge {
+	text-align: center;
+    background-color: #F1F4F9;
+    color: #768695;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.job__footer {
+	margin-top: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.job__buttons {
+    display: flex;
+}
+
+.job__button {
+	cursor: pointer;
+    padding: 10px 15px;
+	margin-right: 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: #0071FE;
+    color: #fff;
+	font-size: 16px;
+}
+
+.job__button_second {
+	cursor: pointer;
+	padding: 10px 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: #F1F4F9;
+    color: #0071FE;
+}
+
+.job__statistics {
+	color: #768695;
+}

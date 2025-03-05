@@ -1,8 +1,6 @@
-import { JobCard } from "../jobCard/jobCard";
-import jobsMock from "./jobsMock";
-import "./jobCatalog.css"
+import store from "../../store";
 
-export class JobCatalog {
+export class Header {
     #parent;
 
     /**
@@ -14,7 +12,7 @@ export class JobCatalog {
     }
 
     get self() {
-        return document.querySelector(".jobs_list")
+        return document.querySelector(".header")
     }
 
     /**
@@ -30,14 +28,10 @@ export class JobCatalog {
     render = () => {
         console.log("register form render");
         // eslint-disable-next-line no-undef
-        const template = Handlebars.templates["jobCatalog/jobCatalog"]
+        const template = Handlebars.templates["header/header"]
         this.#parent.insertAdjacentHTML(
             "beforeend",
-            template()
+            template(store)
         );
-        for (const element of jobsMock) {
-            const card = new JobCard(this.self, element)
-            card.render()
-        }
     }
 }

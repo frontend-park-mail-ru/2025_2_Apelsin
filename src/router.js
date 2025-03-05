@@ -1,15 +1,20 @@
-import store from "./store"
+import { auth } from "./components/auth/auth"
+import { JobCatalog } from "./components/jobCatalog/jobCatalog"
 
-const pages = {
-    'auth': [
-        'login',
-        'regEmail',
-        'regPassword',
-        'regUser',
-        'regCompany',
-        'loginPassword'
-    ],
-}
+const pages = [
+    'auth',
+    'catalog'
+]
 
-export const router = () => {
+export const router = (page = 'catalog') => {
+    const app = document.getElementById("app")
+    app.innerHTML = ''
+    if (page === 'auth') {
+        const authPage = new auth(app)
+        authPage.render()
+    }
+    if (page === 'catalog') {
+        const catalogPage = new JobCatalog(app)
+        catalogPage.render()
+    }
 }

@@ -1,0 +1,15 @@
+<div class="header__name"><b>Resu<span style="color:#F32526">Match</span></b></div>
+<div class="header__links">
+    <div class="header__link">Вакансии</div>
+    <div class="header__link">Работадателю</div>
+    <div class="header__link">Компании</div>
+</div>
+<div class="header__auth">
+    {{#if user}}
+    <div class="header__link">{{username}}</div>
+    <div class="header__link">Выйти</div>
+    {{else}}
+    <div class="header__button">Создать резюме</div>
+    <div class="header__link">Войти</div>
+    {{/if}}
+</div>

@@ -116,7 +116,7 @@ export class registrationEmail {
      */
     remove = () => {
         this.self.remove();
-        document.querySelectorAll("under_link").forEach((element) => {
+        document.querySelectorAll(".under_link").forEach((element) => {
             element.remove();
         })
     }
@@ -126,7 +126,7 @@ export class registrationEmail {
      */
     render = () => {
         console.log("register form render");
-
+        // eslint-disable-next-line no-undef
         const template = Handlebars.templates["registrationEmail/registrationEmail"]
         this.#parent.insertAdjacentHTML(
             "beforeend",

@@ -90,7 +90,7 @@ export class registrationCompany {
      */
     render = () => {
         console.log("register form render");
-
+        // eslint-disable-next-line no-undef
         const template = Handlebars.templates["registrationCompany/registrationCompany"]
         this.#parent.insertAdjacentHTML(
             "beforeend",
