@@ -1,9 +1,10 @@
 import { registrationEmail } from "../registrationEmail/registrationEmail";
-import store from "../../store";
+import { store } from "../../store";
 import { registrationPassword } from "../registrationPassword/registrationPassword";
 import { registrationCompany } from "../registrationCompany/registrationCompany";
 import { registrationUser } from "../registrationUser/registrationUser";
 import { login } from "../login/login";
+import {router} from "../../router.js";
 
 export class auth {
     #parent;
@@ -37,7 +38,7 @@ export class auth {
         }
         if (store.page === "regPassword") {
             this.#regPassword.remove()
-            if (store.auth.type === "company") {
+            if (store.auth.isEmployer) {
                 store.page = "regCompany"
             } else {
                 store.page = "regUser"
@@ -58,14 +59,20 @@ export class auth {
             return
         }
 
-        if (store.page === "login")
-        console.log("NEXT")
+        if (store.page === "login") {
+            this.#login.remove()
+            store.page = "catalog"
+            console.log("Перед переходом на catalog:", store);
+            router("catalog")
+        }
     }
 
     #prevCallback = () => {
         console.log(store.page)
         if (store.page === "regEmail") {
             this.#regEmail.remove();
+            router("catalog");
+            return
         }
         if (store.page === "regPassword") {
             this.#regPassword.remove();
@@ -77,8 +84,8 @@ export class auth {
             this.#regUser.remove();
         }
         store.page = this.#history.pop()
+
         this.render()
-        return
     }
 
     /**
@@ -102,7 +109,7 @@ export class auth {
             );
         }
         if (store.page === "regEmail") {
-            this.#regEmail = new registrationEmail(this.self, this.#nextCallback)
+            this.#regEmail = new registrationEmail(this.self, this.#nextCallback, this.#prevCallback)
             this.#regEmail.render();
         }
         if (store.page === "regPassword") {

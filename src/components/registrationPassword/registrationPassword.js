@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 
 export class registrationPassword {
     #parent;
@@ -123,7 +123,8 @@ export class registrationPassword {
      * Рендеринг формы
      */
     render = () => {
-        console.log("register form render");
+        console.log("registrationPassword form render");
+        console.log(store)
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates["registrationPassword/registrationPassword"]
         this.#parent.insertAdjacentHTML(

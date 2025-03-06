@@ -1,20 +1,21 @@
 body {
-  font-family: Arial, sans-serif;
+  font-family: 'Wix Madefor Display', sans-serif;
   background-color: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 30px;
 }
 
 /* Общие стили для форм */
 .form {
-  min-width: 300px;
-  max-width: 600px;
+  width: 370px;
   padding: 20px;
   border: 1px solid #CFCFCF;
   border-radius: 30px;
-  margin: auto;
+  margin: 150px auto auto;
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.form:hover {
+  box-shadow: 1px 2px 10px rgba(0, 0, 0, 0.1);
+  border-color: #AAAAB3;
 }
 
 form {
@@ -60,7 +61,7 @@ form {
 
 .form__input input {
   padding: 15px 10px;
-  border: 1px solid #AAAAB3;
+  border: 1px solid #CFCFCF;
   color: #A1A1A1;
   font-size: 14px;
   border-radius: 10px;
@@ -71,17 +72,21 @@ form {
   color: #CFCFCF;
 }
 
+.form__input input:hover {
+  border-color: #AAAAB3;
+}
+
 .form__input input:focus {
   outline: 0;
   border: 1px solid #0071FE;
 }
 
 .form__input_error {
-  border: 1px solid #FB0102;
+  border: 1px solid #FB0102 !important;
 }
 
 .form__input_error:focus {
-  border: 1px solid #FB0102;
+  border: 1px solid #FB0102 !important;
 }
 
 .form__error {
@@ -118,12 +123,19 @@ form {
   font-size: 18px;
   width: 100%;
   margin-top: 10px;
+  transition: background-color 0.3s ease;
 }
+
+.form__button:hover {
+  background: #338EFE;
+}
+
 
 .under_link {
   cursor: pointer;
   text-align: center;
   color: #0071FE;
+  font-weight: 600;
   text-decoration: none;
   margin-top: 12px;
   padding: 10px;

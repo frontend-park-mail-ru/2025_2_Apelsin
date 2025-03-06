@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 
 export class registrationUser {
     #parent;
@@ -89,7 +89,8 @@ export class registrationUser {
      * Рендеринг формы
      */
     render = () => {
-        console.log("register form render");
+        console.log("registrationUser form render");
+        console.log(store)
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates["registrationUser/registrationUser"]
         this.#parent.insertAdjacentHTML(

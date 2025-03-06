@@ -1,6 +1,7 @@
 import { JobCard } from "../jobCard/jobCard";
 import jobsMock from "./jobsMock";
 import "./jobCatalog.css"
+import { store } from "../../store.js";
 
 export class JobCatalog {
     #parent;
@@ -28,7 +29,7 @@ export class JobCatalog {
      * Рендеринг формы
      */
     render = () => {
-        console.log("register form render");
+        console.log("После перехода в catalog:", store);
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates["jobCatalog/jobCatalog"]
         this.#parent.insertAdjacentHTML(

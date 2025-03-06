@@ -2,11 +2,11 @@ export default [
     {
         'id': 12,
         'profession': 'Фулстек веб разработчик',
-        'salary': '120000 - 200000',
+        'salary': '120000 - 200000 ₽ в месяц',
         'company': 'VK',
-        'city': 'г. Москва',
+        'city': 'Москва',
         'badges': [
-            {'name': 'Удалённо'},
+            {'name': 'Удаленно'},
             {'name': '40 часов в неделю'}
         ],
         'day_created': 1,
@@ -15,11 +15,11 @@ export default [
     {
         'id': 13,
         'profession': 'Бекенд разработчик',
-        'salary': '150000- 230000',
+        'salary': '150000 - 230000 ₽ в месяц',
         'company': 'VK',
-        'city': 'г.Москва',
+        'city': 'Москва',
         'badges': [
-            {'name': 'Удалённо'},
+            {'name': 'Удаленно'},
         ],
         'day_created': 2,
         'count': 112
@@ -27,11 +27,11 @@ export default [
     {
         'id': 14,
         'profession': 'Бекенд разработчик',
-        'salary': '80000 - 120000',
+        'salary': '80000 - 120000 ₽ в месяц',
         'company': 'Сбер',
-        'city': 'г.Москва',
+        'city': 'Москва',
         'badges': [
-            {'name': 'Удалённо'},
+            {'name': 'Удаленно'},
             {'name': '40 часов в неделю'}
         ],
         'day_created': 3,
@@ -40,9 +40,9 @@ export default [
     {
         'id': 15,
         'profession': 'UX/UI дизайнер',
-        'salary': '130000 - 240000',
+        'salary': '130000 - 240000 ₽ в месяц',
         'company': 'Т-банк',
-        'city': 'г.Санкт-Петербург',
+        'city': 'Санкт-Петербург',
         'badges': [
         ],
         'day_created': 1,

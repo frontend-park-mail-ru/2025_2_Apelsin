@@ -7,7 +7,7 @@ export class JobCard {
     /**
      * Конструктор класса
      * @param parent {HTMLElement} - родительский элемент
-     * @param props {struct} - данные для рендера
+     * @param props {{id: number, profession: string, salary: string, company: string, city: string, badges: [{name: string},{name: string}], day_created: number, count: number}|{id: number, profession: string, salary: string, company: string, city: string, badges: [{name: string}], day_created: number, count: number}|{id: number, profession: string, salary: string, company: string, city: string, badges: [{name: string},{name: string}], day_created: number, count: number}|{id: number, profession: string, salary: string, company: string, city: string, badges: [], day_created: number, count: number}} - данные для рендера
      */
     constructor(parent, props) {
         this.#parent = parent;

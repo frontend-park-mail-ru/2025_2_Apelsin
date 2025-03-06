@@ -1,4 +1,4 @@
-import store from "../../store";
+import { store } from "../../store";
 
 
 /**
@@ -101,8 +101,10 @@ export class login {
         this.#checkboxPassword.addEventListener("click", this.#showPassword)
         this.#submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
+            console.log(store)
             if (this.#passwordValidate() === true) {
                 store.auth.password = this.#password.value
+                store.user.authenticated = true
                 this.#nextCallback()
             }
         })
@@ -119,7 +121,8 @@ export class login {
      * Рендеринг формы
      */
     render = () => {
-        console.log("register form render");
+        console.log("login form render");
+        console.log(store)
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates["login/login"]
         this.#parent.insertAdjacentHTML(

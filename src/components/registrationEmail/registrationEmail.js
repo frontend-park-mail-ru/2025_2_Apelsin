@@ -1,10 +1,11 @@
-import store from "../../store";
+import { store } from "../../store";
 
 export class registrationEmail {
     #parent;
     #email;
     #submitBtn;
     #nextCallback;
+    #prevCallback;
     /**
      * Конструктор класса
      * @param parent {HTMLElement} - родительский элемент
@@ -12,9 +13,10 @@ export class registrationEmail {
      * @param nextCallback {function} - Вызов следующей формы
      * @param prevCallback {function} - Вызов предыдущей формы
      */
-    constructor(parent, nextCallback) {
+    constructor(parent, nextCallback, prevCallback) {
         this.#parent = parent;
         this.#nextCallback = nextCallback;
+        this.#prevCallback = prevCallback;
     }
 
     get self() {
@@ -38,11 +40,7 @@ export class registrationEmail {
     }
 
     #switch = () => {
-        if (store.auth.type === "company") {
-            store.auth.type = "user"
-        } else {
-            store.auth.type = "company"
-        }
+        store.auth.isEmployer = !store.auth.isEmployer
         this.#under_link();
         this.#formNameRender();
     }
@@ -50,7 +48,7 @@ export class registrationEmail {
     #under_link = () => {
         const companyLink = document.getElementById("i_need_users")
         const userLink = document.getElementById("i_need_job")
-        if (store.auth.type === "company") {
+        if (store.auth.isEmployer) {
             companyLink.hidden = true
             userLink.hidden = false
         } else {
@@ -61,7 +59,7 @@ export class registrationEmail {
 
     #formNameRender = () => {
         const formName = this.self.querySelector(".form__name")
-        if (store.auth.type === "company") {
+        if (store.auth.isEmployer) {
             formName.textContent = "Поиск сотрудников"
         } else {
             formName.textContent = "Поиск работы"
@@ -96,6 +94,8 @@ export class registrationEmail {
         this.#email = form.elements["email"]
         this.#submitBtn = form.elements["submit"]
 
+        form.querySelector(".form__back").addEventListener("click", this.#prevCallback)
+
         document.querySelectorAll(".under_link").forEach(element => {
             element.addEventListener("click", this.#switch);
         })
@@ -125,14 +125,15 @@ export class registrationEmail {
      * Рендеринг формы
      */
     render = () => {
-        console.log("register form render");
+        console.log("registrationEmail form render");
+        console.log(store)
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates["registrationEmail/registrationEmail"]
         this.#parent.insertAdjacentHTML(
             "beforeend",
             template(
                 {
-                    "type": store.auth.type,
+                    "isEmployer": store.auth.isEmployer,
                 }
             )
         );
