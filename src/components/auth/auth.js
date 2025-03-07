@@ -83,6 +83,9 @@ export class auth {
         if (store.page === "regUser") {
             this.#regUser.remove();
         }
+        if (store.page === "login") {
+            this.#login.remove();
+        }
         store.page = this.#history.pop()
 
         this.render()

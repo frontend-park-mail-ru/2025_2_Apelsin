@@ -6,6 +6,12 @@ import {router} from "../../router.js";
 export class Header {
     #parent;
     #dropdownVisible = false;
+    #loginButton;
+    #logoutButton;
+    #profileIcon;
+    #dropdownItems;
+    #logoLink;
+
 
     /**
      * Конструктор класса
@@ -23,7 +29,6 @@ export class Header {
      * Очистка
      */
     remove = () => {
-        document.removeEventListener("click", this.handleDocumentClick);
         this.self.remove();
     }
 
@@ -58,32 +63,36 @@ export class Header {
      * Обработчики кнопок
      */
     addEventListeners = () => {
-        const loginButton = this.self.querySelector(".header__login");
-        const logoutButton = this.self.querySelector(".header__logout");
-        const profileIcon = this.self.querySelector(".header__profile-icon");
-        const dropdownItems = this.self.querySelectorAll(".header__dropdown__item");
+        this.#loginButton = this.self.querySelector(".header__login");
+        this.#logoutButton = this.self.querySelector(".header__logout");
+        this.#profileIcon = this.self.querySelector(".header__profile-icon");
+        this.#dropdownItems = this.self.querySelectorAll(".header__dropdown__item");
+        this.#logoLink = this.self.querySelector(".header__name");
 
+        this.#logoLink.addEventListener("click", () => {
+            router("catalog");
+        });
 
-        if (loginButton) {
-            loginButton.addEventListener("click", () => {
-                router("auth"); // Переход на страницу авторизации
+        if (this.#loginButton) {
+            this.#loginButton.addEventListener("click", () => {
+                router("auth");
             });
         }
 
-        if (logoutButton) {
-            logoutButton.addEventListener("click", () => {
+        if (this.#logoutButton) {
+            this.#logoutButton.addEventListener("click", () => {
                 router("catalog")
             });
         }
 
-        if (profileIcon) {
-            profileIcon.addEventListener("click", (e) => {
+        if (this.#profileIcon) {
+            this.#profileIcon.addEventListener("click", (e) => {
                 e.stopPropagation();
                 this.toggleDropdown();
             });
         }
 
-        dropdownItems.forEach(item => {
+        this.#dropdownItems.forEach(item => {
             if (item.classList.contains("header__dropdown__item--logout")) {
                 item.addEventListener("click", () => {
                     this.toggleDropdown(false);

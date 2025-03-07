@@ -95,8 +95,13 @@ export class registrationUser {
         const template = Handlebars.templates["registrationUser/registrationUser"]
         this.#parent.insertAdjacentHTML(
             "beforeend",
-            template()
+            template({
+                "firstName": store.auth.firstName,
+                "lastName": store.auth.lastName,
+            })
         );
         this.#addEventListeners();
+
+        this.#firstName.focus();
     }
 }

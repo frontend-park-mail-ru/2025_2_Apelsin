@@ -164,5 +164,7 @@ export class registrationPassword {
         );
         this.#formEmailRender();
         this.#addEventListeners();
+
+        this.#password.focus();
     }
 }

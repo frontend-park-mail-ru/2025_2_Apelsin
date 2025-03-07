@@ -80,14 +80,6 @@ export class login {
         }
     }
 
-    // #showPassword = () => {
-    //     if (this.#checkboxPassword.checked) {
-    //         this.#password.type = "text"
-    //     } else {
-    //         this.#password.type = "password"
-    //     }
-    // }
-
     #togglePasswordVisibility = () => {
         const showPasswordIcon = this.self.querySelector(".form__toggle-password--show");
         const hidePasswordIcon = this.self.querySelector(".form__toggle-password--hide");
@@ -160,5 +152,7 @@ export class login {
         );
         this.#formEmailRender();
         this.#addEventListeners();
+
+        this.#password.focus();
     }
 }

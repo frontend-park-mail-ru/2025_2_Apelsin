@@ -115,6 +115,7 @@
 .job_category__slider {
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 	gap: 10px;
 }
 

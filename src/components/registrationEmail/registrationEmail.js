@@ -85,7 +85,7 @@ export class registrationEmail {
             return false
         }
         error.hidden = true
-        this.#email.classList.remove("form__valid")
+        this.#email.classList.remove("form__input_error")
         return true
     }
 
@@ -131,14 +131,14 @@ export class registrationEmail {
         const template = Handlebars.templates["registrationEmail/registrationEmail"]
         this.#parent.insertAdjacentHTML(
             "beforeend",
-            template(
-                {
-                    "isEmployer": store.auth.isEmployer,
-                }
-            )
+            template({
+                    "email": store.auth.email,
+            })
         );
         this.#formNameRender();
         this.#under_link();
         this.#addEventListeners();
+
+        this.#email.focus();
     }
 }

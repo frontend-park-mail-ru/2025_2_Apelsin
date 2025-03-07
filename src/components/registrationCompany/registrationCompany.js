@@ -94,8 +94,13 @@ export class registrationCompany {
         const template = Handlebars.templates["registrationCompany/registrationCompany"]
         this.#parent.insertAdjacentHTML(
             "beforeend",
-            template()
+            template({
+                "companyName": store.auth.companyName,
+                "companyAddress": store.auth.companyAddress,
+            })
         );
         this.#addEventListeners();
+
+        this.#companyName.focus();
     }
 }
