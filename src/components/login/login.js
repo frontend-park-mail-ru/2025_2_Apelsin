@@ -11,7 +11,6 @@ export class login {
     #nextCallback;
     #prevCallback;
     #password;
-    #checkboxPassword;
 
     /**
      * Конструктор класса
@@ -81,24 +80,50 @@ export class login {
         }
     }
 
-    #showPassword = () => {
-        if (this.#checkboxPassword.checked) {
-            this.#password.type = "text"
-        } else {
-            this.#password.type = "password"
+    // #showPassword = () => {
+    //     if (this.#checkboxPassword.checked) {
+    //         this.#password.type = "text"
+    //     } else {
+    //         this.#password.type = "password"
+    //     }
+    // }
+
+    #togglePasswordVisibility = () => {
+        const showPasswordIcon = this.self.querySelector(".form__toggle-password--show");
+        const hidePasswordIcon = this.self.querySelector(".form__toggle-password--hide");
+        const password = this.self.elements["password"];
+
+        if (showPasswordIcon.classList.contains("active")) {
+            password.type = "text";
+
+            showPasswordIcon.classList.remove("active");
+            hidePasswordIcon.classList.add("active");
+
+            showPasswordIcon.classList.add("hidden");
+            hidePasswordIcon.classList.remove("hidden");
+        } else if (hidePasswordIcon.classList.contains("active")) {
+            password.type = "password";
+
+            hidePasswordIcon.classList.remove("active");
+            showPasswordIcon.classList.add("active");
+
+            hidePasswordIcon.classList.add("hidden");
+            showPasswordIcon.classList.remove("hidden");
         }
     }
 
     #addEventListeners = () => {
         const form = this.self
         this.#password = form.elements["password"]
-        this.#checkboxPassword = form.elements["show_password"]
         this.#submitBtn = form.elements["submit"]
 
         form.querySelector(".form__back").addEventListener("click", this.#prevCallback)
 
         this.#password.addEventListener("input", this.#passwordValidate)
-        this.#checkboxPassword.addEventListener("click", this.#showPassword)
+
+        const togglePasswordIcons = this.self.querySelector(".form__toggle-password");
+        togglePasswordIcons.addEventListener("click", this.#togglePasswordVisibility);
+
         this.#submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
             console.log(store)

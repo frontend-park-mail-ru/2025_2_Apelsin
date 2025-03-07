@@ -1,3 +1,4 @@
+import "./registrationPassword.css"
 import { store } from "../../store";
 
 export class registrationPassword {
@@ -7,7 +8,7 @@ export class registrationPassword {
     #prevCallback;
     #password;
     #repeatPassword;
-    #checkboxPassword;
+    //#checkboxPassword;
 
     /**
      * Конструктор класса
@@ -80,28 +81,54 @@ export class registrationPassword {
         }
     }
 
-    #showPassword = () => {
-        if (this.#checkboxPassword.checked) {
-            this.#password.type = "text"
-            this.#repeatPassword.type = "text"
-        } else {
-            this.#password.type = "password"
-            this.#repeatPassword.type = "password"
-        }
+    #togglePasswordVisibility = () => {
+        const showPasswordIcons = this.self.querySelectorAll(".form__toggle-password--show");
+        const hidePasswordIcons = this.self.querySelectorAll(".form__toggle-password--hide");
+        const password = this.self.elements["password"];
+        const repeatPassword = this.self.elements["repeat_password"];
+
+        showPasswordIcons.forEach((showPasswordIcon, i) => {
+            const hidePasswordIcon = hidePasswordIcons[i];
+
+            if (showPasswordIcon.classList.contains("active")) {
+                password.type = "text";
+                repeatPassword.type = "text";
+
+                showPasswordIcon.classList.remove("active");
+                hidePasswordIcon.classList.add("active");
+
+                showPasswordIcon.classList.add("hidden");
+                hidePasswordIcon.classList.remove("hidden");
+            } else if (hidePasswordIcon.classList.contains("active")) {
+                password.type = "password";
+                repeatPassword.type = "password";
+
+                hidePasswordIcon.classList.remove("active");
+                showPasswordIcon.classList.add("active");
+
+                hidePasswordIcon.classList.add("hidden");
+                showPasswordIcon.classList.remove("hidden");
+            }
+        });
     }
+
+
 
     #addEventListeners = () => {
         const form = this.self
         this.#password = form.elements["password"]
         this.#repeatPassword = form.elements["repeat_password"]
-        this.#checkboxPassword = form.elements["show_password"]
         this.#submitBtn = form.elements["submit"]
 
         form.querySelector(".form__back").addEventListener("click", this.#prevCallback)
 
         this.#password.addEventListener("input", this.#passwordValidate)
         this.#repeatPassword.addEventListener("input", this.#passwordValidate)
-        this.#checkboxPassword.addEventListener("click", this.#showPassword)
+        const togglePasswordIcons = this.self.querySelectorAll(".form__toggle-password");
+        togglePasswordIcons.forEach((icon) => {
+            icon.addEventListener("click", this.#togglePasswordVisibility);
+        });
+
         this.#submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
             if (this.#passwordValidate() === true) {
