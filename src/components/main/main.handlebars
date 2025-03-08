@@ -1,0 +1,88 @@
+<div id="job_catalog_page">
+    <div class="info">
+        <div class="info__welcome"><b>Твоя карьера - наш приоритет</b></div>
+        <form class="info__search">
+            <input placeholder="Профессия, должность или компания"></input>
+            <button class="info__button">Найти</button>
+        </form>
+        <div class="info__footer">
+            Нет резюме? Используй наш <a class="info__link">конструктор</a>
+        </div>
+    </div>
+    <div class="job_category">
+        <div class="job_category__name">Специализация</div>
+        <div class="job_category__slider">
+            <div class="job_category__badge">&#10094;</div>
+            <div class="job_category__badge">Информационные технологии</div>
+            <div class="job_category__badge">Наука, образование</div>
+            <div class="job_category__badge">Туризм, гостиницы</div>
+            <div class="job_category__badge">IT-специальности</div>
+            <div class="job_category__badge">&#10095;</div>
+        </div>
+    </div>
+    <div class="page">
+        <form class="filter">
+            <div class="filter__name"><b>Режим работы</b></div>
+            <label class="filter__checkbox">
+                <input type="checkbox" name="work_mode" value="full_time">
+                <span>Полный день</span>
+            </label>
+            <label class="filter__checkbox">
+                <input type="checkbox" name="work_mode" value="hybrid">
+                <span>Смешанный формат</span>
+            </label>
+            <label class="filter__checkbox">
+                <input type="checkbox" name="work_mode" value="remote">
+                <span>Удаленная работа</span>
+            </label>
+            <label class="filter__checkbox">
+                <input type="checkbox" name="work_mode" value="flexible">
+                <span>Гибкий график</span>
+            </label>
+            <label class="filter__checkbox">
+                <input type="checkbox" name="work_mode" value="shift">
+                <span>Сменный график</span>
+            </label>
+            <div class="filter__name"><b>Зарплата</b></div>
+            <div class="filter__input">
+                <label for="salary_from">Зарплата от, руб:</label>
+                <input type="number" id="salary_from" name="salary_from" min="0" placeholder="Введите сумму">
+            </div>
+            <div class="filter__name"><b>Опыт работы</b></div>
+            <label class="filter__checkbox">
+                <input type="checkbox" name="experience" value="no_matter">
+                <span>Не имеет значения</span>
+            </label>
+            <label class="filter__checkbox">
+                <input type="checkbox" name="experience" value="no_experience">
+                <span>Нет опыта</span>
+            </label>
+            <label class="filter__checkbox">
+                <input type="checkbox" name="experience" value="1_to_3_years">
+                <span>От 1 года до 3 лет</span>
+            </label>
+            <label class="filter__checkbox">
+                <input type="checkbox" name="experience" value="4_to_6_years">
+                <span>От 4 до 6 лет</span>
+            </label>
+            <label class="filter__checkbox">
+                <input type="checkbox" name="experience" value="more_than_6_years">
+                <span>Более 6 лет</span>
+            </label>
+
+            <div class="filter__name"><b>Сортировка</b></div>
+            <label class="filter__checkbox">
+                <input type="radio" name="sort" value="date" checked>
+                <span>По дате изменения</span>
+            </label>
+            <label class="filter__checkbox">
+                <input type="radio" name="sort" value="salary_desc">
+                <span>По убыванию зарплаты</span>
+            </label>
+            <label class="filter__checkbox">
+                <input type="radio" name="sort" value="relevance">
+                <span>По соответствию</span>
+            </label>
+        </form>
+    </div>
+</div>
