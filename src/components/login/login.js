@@ -5,7 +5,7 @@ import { store } from "../../store";
  * @class
  * @classdesc Форма авторизации. Возникает если при регистрации указать 
  */
-export class login {
+export class Login {
     #parent;
     #submitBtn;
     #nextCallback;
@@ -25,24 +25,27 @@ export class login {
         this.#prevCallback = prevCallback;
     }
 
+    /**
+     * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
+     * @returns {HTMLElement}
+     */
     get self() {
         return document.forms["login"]
     }
 
-    show = () => {
-        this.self.hidden = false
-        this.#formEmailRender()
-    }
-
-    hide = () => {
-        this.self.hidden = true
-    }
-
+    /**
+     * Рендер поля почты. Рендерится при переходе из формы ввода почты
+     */
     #formEmailRender = () => {
         const email = this.self.querySelector(".form__email")
         email.textContent = store.auth.email
     }
 
+    /**
+     * Валидация введенного пароля на принадлежность к английским буквам и цифрам
+     * @param {string} str - пароль для валидации 
+     * @returns {boolean}
+     */
     #checkPassword(str) {
         for (let i = 0; i < str.length; i++) {
             const char = str.charCodeAt(i);
@@ -54,8 +57,10 @@ export class login {
         }
         return true;
     }
+
     /**
      * Валидация введенных данных
+     * @returns {boolean}
      */
     #passwordValidate = () => {
         const error = this.self.querySelector(".form__error")
@@ -80,6 +85,9 @@ export class login {
         }
     }
 
+    /**
+     * Кнопка глазика в поле ввода пароля
+     */
     #togglePasswordVisibility = () => {
         const showPasswordIcon = this.self.querySelector(".form__toggle-password--show");
         const hidePasswordIcon = this.self.querySelector(".form__toggle-password--hide");
@@ -104,6 +112,9 @@ export class login {
         }
     }
 
+    /**
+     * Навешивание обработчиков событий
+     */
     #addEventListeners = () => {
         const form = this.self
         this.#password = form.elements["password"]

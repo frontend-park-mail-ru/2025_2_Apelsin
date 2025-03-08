@@ -1,6 +1,6 @@
 import { store } from "../../store";
 
-export class registrationEmail {
+export class RegistrationEmail {
     #parent;
     #email;
     #submitBtn;
@@ -9,7 +9,6 @@ export class registrationEmail {
     /**
      * Конструктор класса
      * @param parent {HTMLElement} - родительский элемент
-     * @param type {string} - Тип регистрации
      * @param nextCallback {function} - Вызов следующей формы
      * @param prevCallback {function} - Вызов предыдущей формы
      */
@@ -19,32 +18,26 @@ export class registrationEmail {
         this.#prevCallback = prevCallback;
     }
 
+    /**
+     * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
+     * @returns {HTMLElement}
+     */
     get self() {
         return document.forms["registration_email"]
     }
 
-    getEmail = () => {
-        return this.#email
-    }
-
-    hide = () => {
-        this.self.hidden = true
-        document.querySelectorAll(".under_link").forEach(element => {
-            element.hidden = true
-        })
-    }
-
-    show = () => {
-        this.self.hidden = false
-        this.#under_link()
-    }
-
+    /**
+     * Смена типа формы с поиска работы на поиск работника и наоборот
+     */
     #switch = () => {
         store.auth.isEmployer = !store.auth.isEmployer
         this.#under_link();
         this.#formNameRender();
     }
 
+    /**
+     * Рендер ссылки. Вызывается при смене типа формы
+     */
     #under_link = () => {
         const companyLink = document.getElementById("i_need_users")
         const userLink = document.getElementById("i_need_job")
@@ -57,6 +50,9 @@ export class registrationEmail {
         }
     }
 
+    /**
+     * Рендер имени формы. Вызывается при смене типа формы
+     */
     #formNameRender = () => {
         const formName = this.self.querySelector(".form__name")
         if (store.auth.isEmployer) {
@@ -69,6 +65,7 @@ export class registrationEmail {
 
     /**
      * Валидация введенных данных
+     * @returns {boolean}
      */
     #emailValidate = () => {
         const error = this.self.querySelector(".form__error")
@@ -89,6 +86,9 @@ export class registrationEmail {
         return true
     }
 
+    /**
+     * Навешивание обработчиков событий
+     */
     #addEventListeners = () => {
         const form = this.self
         this.#email = form.elements["email"]

@@ -1,6 +1,6 @@
 import { store } from "../../store";
 
-export class registrationUser {
+export class RegistrationUser {
     #parent;
     #firstName;
     #lastName;
@@ -20,20 +20,17 @@ export class registrationUser {
         this.#prevCallback = prevCallback;
     }
 
+    /**
+     * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
+     * @returns {HTMLElement}
+     */
     get self() {
         return document.forms["registration_user"]
     }
 
-    hide = () => {
-        this.self.hidden = true
-    }
-
-    show = () => {
-        this.self.hidden = false
-    }
-
     /**
      * Валидация введенных данных
+     * @returns {boolean}
      */
     #companyValidate = () => {
         const error = this.self.querySelector(".form__error")
@@ -59,6 +56,9 @@ export class registrationUser {
         return true
     }
 
+    /**
+     * Навешивание обработчиков событий
+     */
     #addEventListeners = () => {
         const form = this.self
         this.#firstName = form.elements["first_name"]

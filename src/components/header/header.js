@@ -1,7 +1,7 @@
 import {store, resetStore} from "../../store";
 import './header.css'
 import {router} from "../../router.js";
-
+import { Api } from "../../api/api.js";
 
 export class Header {
     #parent;
@@ -20,7 +20,11 @@ export class Header {
     constructor(parent) {
         this.#parent = parent;
     }
-
+    
+    /**
+     * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
+     * @returns {HTMLElement}
+     */
     get self() {
         return document.querySelector(".header")
     }
@@ -96,8 +100,13 @@ export class Header {
             if (item.classList.contains("header__dropdown__item--logout")) {
                 item.addEventListener("click", () => {
                     this.toggleDropdown(false);
-                    resetStore()
-                    router("catalog");
+                    const api = new Api()
+                    api.logout().then(() => {
+                        resetStore()
+                        router("catalog");
+                    }).catch(() => {
+                        console.log("ERROR")
+                    })
                 });
             } else {
                 item.addEventListener("click", () => {
@@ -112,7 +121,7 @@ export class Header {
     };
 
     /**
-     * Рендеринг формы
+     * Рендеринг компонента
      */
     render = () => {
         console.log("header render");

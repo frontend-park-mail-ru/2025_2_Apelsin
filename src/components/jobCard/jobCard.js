@@ -7,15 +7,27 @@ export class JobCard {
     /**
      * Конструктор класса
      * @param parent {HTMLElement} - родительский элемент
-     * @param props {{id: number, profession: string, salary: string, company: string, city: string, badges: [{name: string},{name: string}], day_created: number, count: number}|{id: number, profession: string, salary: string, company: string, city: string, badges: [{name: string}], day_created: number, count: number}|{id: number, profession: string, salary: string, company: string, city: string, badges: [{name: string},{name: string}], day_created: number, count: number}|{id: number, profession: string, salary: string, company: string, city: string, badges: [], day_created: number, count: number}} - данные для рендера
+     * @param props 
+     * {id: number, 
+     * profession: string, 
+     * salary: string, 
+     * company: string, 
+     * city: string, 
+     * badges: [{name: string}], 
+     * day_created: number, 
+     * count: number} - данные для рендера
      */
     constructor(parent, props) {
         this.#parent = parent;
         this.#props = props;
     }
 
+    /**
+     * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
+     * @returns {HTMLElement}
+     */
     get self() {
-        return document.getElementById(p.id)
+        return document.getElementById(this.#props.id)
     }
 
     /**
@@ -26,7 +38,7 @@ export class JobCard {
     }
 
     /**
-     * Рендеринг формы
+     * Рендеринг компонента
      */
     render = () => {
         console.log("register form render");

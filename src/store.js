@@ -32,11 +32,17 @@ const defaultStore = {
     },
     user: {
         authenticated: false,
+        email: '',
         firstName: '',
         lastName: '',
+        companyName: '',
+        companyAddress: ''
     }
 };
 
+/**
+ * Сбрасывает стор. Вызывается при выходе
+ */
 function resetStore() {
     Object.assign(store, defaultStore);
 }

@@ -1,13 +1,14 @@
 import "./registrationPassword.css"
 import { store } from "../../store";
 
-export class registrationPassword {
+export class RegistrationPassword {
     #parent;
     #submitBtn;
     #nextCallback;
     #prevCallback;
     #password;
     #repeatPassword;
+
     /**
      * Конструктор класса
      * @param parent {HTMLElement} - родительский элемент
@@ -18,24 +19,27 @@ export class registrationPassword {
         this.#prevCallback = prevCallback;
     }
 
+    /**
+     * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
+     * @returns {HTMLElement}
+     */
     get self() {
         return document.forms["registration_password"]
     }
 
-    show = () => {
-        this.self.hidden = false
-        this.#formEmailRender()
-    }
-
-    hide = () => {
-        this.self.hidden = true
-    }
-
+    /**
+     * Рендер почты. Вызывается при переходе из формы ввода почты
+     */
     #formEmailRender = () => {
         const email = this.self.querySelector(".form__email")
         email.textContent = store.auth.email
     }
-
+    
+    /**
+     * Проверяет пароль на соответсвие английским символам и цифрам
+     * @param {string} str - пароль для валидации 
+     * @returns {boolean}
+     */
     #checkPassword(str) {
         for (let i = 0; i < str.length; i++) {
             const char = str.charCodeAt(i);
@@ -47,8 +51,10 @@ export class registrationPassword {
         }
         return true;
     }
+    
     /**
      * Валидация введенных данных
+     * @returns {boolean}
      */
     #passwordValidate = () => {
         const error = this.self.querySelector(".form__error")
@@ -79,6 +85,9 @@ export class registrationPassword {
         }
     }
 
+    /**
+     * Кнопка глазика в поле ввода пароля
+     */
     #togglePasswordVisibility = () => {
         const showPasswordIcons = this.self.querySelectorAll(".form__toggle-password--show");
         const hidePasswordIcons = this.self.querySelectorAll(".form__toggle-password--hide");
@@ -111,7 +120,9 @@ export class registrationPassword {
     }
 
 
-
+    /**
+     * Навешивание обработчиков событий формы
+     */
     #addEventListeners = () => {
         const form = this.self
         this.#password = form.elements["password"]
