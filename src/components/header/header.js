@@ -46,7 +46,7 @@ export class Header {
      * Переключение видимости дропдауна
      * @param {boolean|undefined} state - принудительное состояние (true - показать, false - скрыть)
      */
-    toggleDropdown = (state = undefined) => {
+    toggleDropdown = (state) => {
         const dropdown = this.self.querySelector(".header__dropdown");
         if (!dropdown) return;
 

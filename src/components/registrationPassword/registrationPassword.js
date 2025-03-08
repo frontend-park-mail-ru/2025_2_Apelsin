@@ -8,8 +8,6 @@ export class registrationPassword {
     #prevCallback;
     #password;
     #repeatPassword;
-    //#checkboxPassword;
-
     /**
      * Конструктор класса
      * @param parent {HTMLElement} - родительский элемент
