@@ -10,13 +10,7 @@ const pages = [
 
 export const router = (page = 'catalog') => {
     const app = document.getElementById("app")
-    console.log(store);
     app.innerHTML = ''
-
-    const header = new Header(app);
-    header.render();
-
-    
     if (page === 'auth') {
         const authPage = new auth(app)
         authPage.render()
