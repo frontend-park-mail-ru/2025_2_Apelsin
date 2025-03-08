@@ -93,7 +93,7 @@ export class registrationEmail {
         const form = this.self
         this.#email = form.elements["email"]
         this.#submitBtn = form.elements["submit"]
-
+      
         form.querySelector(".form__back").addEventListener("click", this.#prevCallback)
 
         document.querySelectorAll(".under_link").forEach(element => {

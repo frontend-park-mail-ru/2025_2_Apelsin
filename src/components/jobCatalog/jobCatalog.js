@@ -1,6 +1,6 @@
 import { JobCard } from "../jobCard/jobCard";
 import jobsMock from "./jobsMock";
-import "./jobCatalog.css"
+import "./jobCatalog.css";
 import { store } from "../../store.js";
 
 export class JobCatalog {

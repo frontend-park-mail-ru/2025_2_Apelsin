@@ -16,7 +16,6 @@ export const router = (page = 'catalog') => {
     const header = new Header(app);
     header.render();
 
-    
     if (page === 'auth') {
         const authPage = new auth(app)
         authPage.render()

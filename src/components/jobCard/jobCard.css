@@ -49,7 +49,7 @@
 
 .job__name {
 	cursor: pointer;
-    font-size: 24px;
+  font-size: 24px;
 	font-weight: bold;
 	margin: 0;
 }
@@ -101,8 +101,8 @@
 	font-size: 14px;
 	font-weight: bold;
 	text-align: center;
-    padding: 10px;
-    border-radius: 10px;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .job__footer {
@@ -118,11 +118,11 @@
 
 .job__button {
 	cursor: pointer;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 10px;
-    background-color: #0071FE;
-    color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #0071FE;
+  color: #fff;
 	font-size: 16px;
 	font-weight: 600;
 	transition: background-color 0.3s ease;
