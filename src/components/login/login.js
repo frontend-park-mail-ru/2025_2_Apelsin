@@ -1,17 +1,16 @@
-import store from "../../store";
+import { store } from "../../store";
 
 
 /**
  * @class
  * @classdesc Форма авторизации. Возникает если при регистрации указать 
  */
-export class login {
+export class Login {
     #parent;
     #submitBtn;
     #nextCallback;
     #prevCallback;
     #password;
-    #checkboxPassword;
 
     /**
      * Конструктор класса
@@ -26,24 +25,27 @@ export class login {
         this.#prevCallback = prevCallback;
     }
 
+    /**
+     * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
+     * @returns {HTMLElement}
+     */
     get self() {
         return document.forms["login"]
     }
 
-    show = () => {
-        this.self.hidden = false
-        this.#formEmailRender()
-    }
-
-    hide = () => {
-        this.self.hidden = true
-    }
-
+    /**
+     * Рендер поля почты. Рендерится при переходе из формы ввода почты
+     */
     #formEmailRender = () => {
         const email = this.self.querySelector(".form__email")
         email.textContent = store.auth.email
     }
 
+    /**
+     * Валидация введенного пароля на принадлежность к английским буквам и цифрам
+     * @param {string} str - пароль для валидации 
+     * @returns {boolean}
+     */
     #checkPassword(str) {
         for (let i = 0; i < str.length; i++) {
             const char = str.charCodeAt(i);
@@ -55,8 +57,10 @@ export class login {
         }
         return true;
     }
+
     /**
      * Валидация введенных данных
+     * @returns {boolean}
      */
     #passwordValidate = () => {
         const error = this.self.querySelector(".form__error")
@@ -81,28 +85,54 @@ export class login {
         }
     }
 
-    #showPassword = () => {
-        if (this.#checkboxPassword.checked) {
-            this.#password.type = "text"
-        } else {
-            this.#password.type = "password"
+    /**
+     * Кнопка глазика в поле ввода пароля
+     */
+    #togglePasswordVisibility = () => {
+        const showPasswordIcon = this.self.querySelector(".form__toggle-password--show");
+        const hidePasswordIcon = this.self.querySelector(".form__toggle-password--hide");
+        const password = this.self.elements["password"];
+
+        if (showPasswordIcon.classList.contains("active")) {
+            password.type = "text";
+
+            showPasswordIcon.classList.remove("active");
+            hidePasswordIcon.classList.add("active");
+
+            showPasswordIcon.classList.add("hidden");
+            hidePasswordIcon.classList.remove("hidden");
+        } else if (hidePasswordIcon.classList.contains("active")) {
+            password.type = "password";
+
+            hidePasswordIcon.classList.remove("active");
+            showPasswordIcon.classList.add("active");
+
+            hidePasswordIcon.classList.add("hidden");
+            showPasswordIcon.classList.remove("hidden");
         }
     }
 
+    /**
+     * Навешивание обработчиков событий
+     */
     #addEventListeners = () => {
         const form = this.self
         this.#password = form.elements["password"]
-        this.#checkboxPassword = form.elements["show_password"]
         this.#submitBtn = form.elements["submit"]
 
         form.querySelector(".form__back").addEventListener("click", this.#prevCallback)
 
         this.#password.addEventListener("input", this.#passwordValidate)
-        this.#checkboxPassword.addEventListener("click", this.#showPassword)
+
+        const togglePasswordIcons = this.self.querySelector(".form__toggle-password");
+        togglePasswordIcons.addEventListener("click", this.#togglePasswordVisibility);
+
         this.#submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
+            console.log(store)
             if (this.#passwordValidate() === true) {
                 store.auth.password = this.#password.value
+                store.user.authenticated = true
                 this.#nextCallback()
             }
         })
@@ -119,7 +149,8 @@ export class login {
      * Рендеринг формы
      */
     render = () => {
-        console.log("register form render");
+        console.log("login form render");
+        console.log(store)
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates["login/login"]
         this.#parent.insertAdjacentHTML(
@@ -132,5 +163,7 @@ export class login {
         );
         this.#formEmailRender();
         this.#addEventListeners();
+
+        this.#password.focus();
     }
 }

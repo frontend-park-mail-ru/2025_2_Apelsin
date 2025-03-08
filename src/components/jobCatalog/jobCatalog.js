@@ -1,9 +1,11 @@
 import { JobCard } from "../jobCard/jobCard";
-import jobsMock from "./jobsMock";
 import "./jobCatalog.css"
+import { store } from "../../store.js";
+import { Api } from "../../api/api.js";
 
 export class JobCatalog {
     #parent;
+    #api;
 
     /**
      * Конструктор класса
@@ -11,8 +13,13 @@ export class JobCatalog {
      */
     constructor(parent) {
         this.#parent = parent;
+        this.#api = new Api()
     }
 
+    /**
+     * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
+     * @returns {HTMLElement}
+     */
     get self() {
         return document.querySelector(".jobs_list")
     }
@@ -25,19 +32,24 @@ export class JobCatalog {
     }
 
     /**
-     * Рендеринг формы
+     * Рендеринг страницы
      */
-    render = () => {
-        console.log("register form render");
+    render = async () => {
+        console.log("После перехода в catalog:", store);
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates["jobCatalog/jobCatalog"]
         this.#parent.insertAdjacentHTML(
             "beforeend",
             template()
         );
-        for (const element of jobsMock) {
-            const card = new JobCard(this.self, element)
-            card.render()
+        try {
+            const jobs = await this.#api.getVacancies()
+            for (const element of jobs) {
+                const card = new JobCard(this.self, element)
+                card.render()
+            }
+        } catch {
+            this.self.textContent = "Ничего не найдено"
         }
     }
 }

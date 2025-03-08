@@ -1,13 +1,13 @@
-import store from "../../store";
+import "./registrationPassword.css"
+import { store } from "../../store";
 
-export class registrationPassword {
+export class RegistrationPassword {
     #parent;
     #submitBtn;
     #nextCallback;
     #prevCallback;
     #password;
     #repeatPassword;
-    #checkboxPassword;
 
     /**
      * Конструктор класса
@@ -19,24 +19,27 @@ export class registrationPassword {
         this.#prevCallback = prevCallback;
     }
 
+    /**
+     * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
+     * @returns {HTMLElement}
+     */
     get self() {
         return document.forms["registration_password"]
     }
 
-    show = () => {
-        this.self.hidden = false
-        this.#formEmailRender()
-    }
-
-    hide = () => {
-        this.self.hidden = true
-    }
-
+    /**
+     * Рендер почты. Вызывается при переходе из формы ввода почты
+     */
     #formEmailRender = () => {
         const email = this.self.querySelector(".form__email")
         email.textContent = store.auth.email
     }
-
+    
+    /**
+     * Проверяет пароль на соответсвие английским символам и цифрам
+     * @param {string} str - пароль для валидации 
+     * @returns {boolean}
+     */
     #checkPassword(str) {
         for (let i = 0; i < str.length; i++) {
             const char = str.charCodeAt(i);
@@ -48,8 +51,10 @@ export class registrationPassword {
         }
         return true;
     }
+    
     /**
      * Валидация введенных данных
+     * @returns {boolean}
      */
     #passwordValidate = () => {
         const error = this.self.querySelector(".form__error")
@@ -80,28 +85,59 @@ export class registrationPassword {
         }
     }
 
-    #showPassword = () => {
-        if (this.#checkboxPassword.checked) {
-            this.#password.type = "text"
-            this.#repeatPassword.type = "text"
-        } else {
-            this.#password.type = "password"
-            this.#repeatPassword.type = "password"
-        }
+    /**
+     * Кнопка глазика в поле ввода пароля
+     */
+    #togglePasswordVisibility = () => {
+        const showPasswordIcons = this.self.querySelectorAll(".form__toggle-password--show");
+        const hidePasswordIcons = this.self.querySelectorAll(".form__toggle-password--hide");
+        const password = this.self.elements["password"];
+        const repeatPassword = this.self.elements["repeat_password"];
+
+        showPasswordIcons.forEach((showPasswordIcon, i) => {
+            const hidePasswordIcon = hidePasswordIcons[i];
+
+            if (showPasswordIcon.classList.contains("active")) {
+                password.type = "text";
+                repeatPassword.type = "text";
+
+                showPasswordIcon.classList.remove("active");
+                hidePasswordIcon.classList.add("active");
+
+                showPasswordIcon.classList.add("hidden");
+                hidePasswordIcon.classList.remove("hidden");
+            } else if (hidePasswordIcon.classList.contains("active")) {
+                password.type = "password";
+                repeatPassword.type = "password";
+
+                hidePasswordIcon.classList.remove("active");
+                showPasswordIcon.classList.add("active");
+
+                hidePasswordIcon.classList.add("hidden");
+                showPasswordIcon.classList.remove("hidden");
+            }
+        });
     }
 
+
+    /**
+     * Навешивание обработчиков событий формы
+     */
     #addEventListeners = () => {
         const form = this.self
         this.#password = form.elements["password"]
         this.#repeatPassword = form.elements["repeat_password"]
-        this.#checkboxPassword = form.elements["show_password"]
         this.#submitBtn = form.elements["submit"]
 
         form.querySelector(".form__back").addEventListener("click", this.#prevCallback)
 
         this.#password.addEventListener("input", this.#passwordValidate)
         this.#repeatPassword.addEventListener("input", this.#passwordValidate)
-        this.#checkboxPassword.addEventListener("click", this.#showPassword)
+        const togglePasswordIcons = this.self.querySelectorAll(".form__toggle-password");
+        togglePasswordIcons.forEach((icon) => {
+            icon.addEventListener("click", this.#togglePasswordVisibility);
+        });
+
         this.#submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
             if (this.#passwordValidate() === true) {
@@ -123,7 +159,8 @@ export class registrationPassword {
      * Рендеринг формы
      */
     render = () => {
-        console.log("register form render");
+        console.log("registrationPassword form render");
+        console.log(store)
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates["registrationPassword/registrationPassword"]
         this.#parent.insertAdjacentHTML(
@@ -136,5 +173,7 @@ export class registrationPassword {
         );
         this.#formEmailRender();
         this.#addEventListeners();
+
+        this.#password.focus();
     }
 }

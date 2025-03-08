@@ -1,6 +1,6 @@
-import store from "../../store";
+import { store } from "../../store";
 
-export class registrationCompany {
+export class RegistrationCompany {
     #parent;
     #companyName;
     #companyAddress;
@@ -20,20 +20,17 @@ export class registrationCompany {
         this.#prevCallback = prevCallback;
     }
 
+    /**
+     * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
+     * @returns {HTMLElement}
+     */
     get self() {
         return document.forms["registration_company"]
     }
 
-    hide = () => {
-        this.self.hidden = true
-    }
-
-    show = () => {
-        this.self.hidden = false
-    }
-
     /**
      * Валидация введенных данных
+     * @returns {boolean}
      */
     #companyValidate = () => {
         const error = this.self.querySelector(".form__error")
@@ -59,6 +56,9 @@ export class registrationCompany {
         return true
     }
 
+    /**
+     * Навешивание обработчиков событий
+     */
     #addEventListeners = () => {
         const form = this.self
         this.#companyAddress = form.elements["company_address"]
@@ -94,8 +94,13 @@ export class registrationCompany {
         const template = Handlebars.templates["registrationCompany/registrationCompany"]
         this.#parent.insertAdjacentHTML(
             "beforeend",
-            template()
+            template({
+                "companyName": store.auth.companyName,
+                "companyAddress": store.auth.companyAddress,
+            })
         );
         this.#addEventListeners();
+
+        this.#companyName.focus();
     }
 }

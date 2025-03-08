@@ -1,18 +1,28 @@
-<form class="form">
-            <div class="form__back">&#10094;</div>
-			<div id="form login password">
-				<div class="form__name">Введите пароль</div>
-				<div class="form__description">
-					От профиля с почтой
-					<div class="form__email">{{email}}</div>
-				</div>
-				<div class="form__input">
-					<input type="password" placeholder="пароль" name="password" required>
-				</div>
-				<label class="form__checkbox">
-                    <input type="checkbox" name="show_password">
-                    <span>Показать пароль</span>
-				</label>
-			</div>
-            <button type="submit" class="form__button" name="submit">Войти</button>
-        </form>
+<form class="form" name="login">
+    <div class="form__back">&#10094;</div>
+        <div class="form__name">Введите пароль</div>
+        <div class="form__description">
+            От профиля с почтой
+            <div class="form__email">{{email}}</div>
+        </div>
+        <div class="form__input">
+            <div class="form__input-wrapper">
+                <input class="form__input-password" type="password" placeholder="Пароль" name="password" minlength="10" required>
+                <div class="form__toggle-password">
+                    <svg class="active form__toggle-password--show" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3.933 13.909C3.46923 13.3594 3.1487 12.7036 3 12C3 11 7 6 12 6M19.6 9.8C20.2506 10.3987 20.7332 11.1571 21 12C21 13 18 18 12 18C11.686 18 11.38 17.986 11.082 17.96M5 19L19 5M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="#AAAAB3" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+
+                    <svg class="hidden form__toggle-password--hide" width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M21 12C21 13.2 16.9706 18 12 18C7.02944 18 3 13.2 3 12C3 10.8 7.02944 6 12 6C16.9706 6 21 10.8 21 12Z" stroke="#0071FE" stroke-width="2"/>
+                        <path d="M15 12C15 13.6569 13.6569 15 12 15C10.3431 15 9 13.6569 9 12C9 10.3431 10.3431 9 12 9C13.6569 9 15 10.3431 15 12Z" stroke="#0071FE" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+
+        </div>
+        <div class="form__error">
+
+        </div>
+    <button type="submit" class="form__button" name="submit">Войти</button>
+</form>
