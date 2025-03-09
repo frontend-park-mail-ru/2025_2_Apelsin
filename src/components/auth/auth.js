@@ -36,18 +36,18 @@ export class Auth {
      */
     #nextCallback = async () => {
         this.#history.push(store.page);
-        if (store.page === "regEmail" || store.page === "auth") {
-            this.#regEmail.remove()
-            console.log("FETCH")
+        if (store.page === 'regEmail' || store.page === 'auth') {
+            this.#regEmail.remove();
+            console.log('FETCH');
             try {
-                await this.#api.getUser(store.auth.email)
-                store.page = "login"
-                this.render()
+                await this.#api.getUser(store.auth.email);
+                store.page = 'login';
+                this.render();
             } catch {
-                store.page = "regPassword"
-                this.render()
+                store.page = 'regPassword';
+                this.render();
             }
-            return
+            return;
         }
         if (store.page === 'regPassword') {
             this.#regPassword.remove();
@@ -86,27 +86,27 @@ export class Auth {
             return;
         }
 
-        if (store.page === "login") {
+        if (store.page === 'login') {
             try {
-                await this.#api.login({email: store.auth.email, password: store.auth.password})
-                this.#login.remove()
-                store.page = "catalog"
-                console.log("Перед переходом на catalog:", store);
-                router("catalog")
+                await this.#api.login({ email: store.auth.email, password: store.auth.password });
+                this.#login.remove();
+                store.page = 'catalog';
+                console.log('Перед переходом на catalog:', store);
+                router('catalog');
             } catch {
-                const error = document.querySelector(".form__error")
-                error.hidden = false
-                error.textContent = "Ошибка при авторизации"
+                const error = document.querySelector('.form__error');
+                error.hidden = false;
+                error.textContent = 'Ошибка при авторизации';
             }
         }
-    }
+    };
 
     /**
      * Логика открытия предыдущих форм
      */
     #prevCallback = () => {
-        console.log(store.page)
-        if (store.page === "regEmail" || store.page === "auth" || store.page === undefined) {
+        console.log(store.page);
+        if (store.page === 'regEmail' || store.page === 'auth' || store.page === undefined) {
             this.#regEmail.remove();
             router('catalog');
             return;
