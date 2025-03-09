@@ -117,8 +117,9 @@ export class Header {
                 });
             }
         });
-
-        document.addEventListener('click', this.handleDocumentClick);
+        if (store.page === '') {
+            document.addEventListener('click', this.handleDocumentClick);
+        }
     };
 
     /**
