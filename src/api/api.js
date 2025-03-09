@@ -1,3 +1,5 @@
+import { logger } from '../utils/logger.js';
+
 export class Api {
     #baseUrl;
 
@@ -28,19 +30,19 @@ export class Api {
             credentials: 'include',
             body: body !== null ? JSON.stringify(body) : null,
         };
-        console.log(url, init);
+        logger.info(url, init);
         try {
             const response = await fetch(url, init);
             if (!response.ok) {
-                console.log('ERROR');
-                //Получаем json ошибки если есть. Если тела нету то пишем заглушку
+                //Получаем json ошибки, если есть. Если тела нет, то пишем заглушку
                 const error = await response.json();
+                logger.error(`error: ${error.message}`);
                 throw new Error(error.message || 'Ошибка при выполнении запроса');
             }
 
             return response.json();
         } catch {
-            console.log('NETWORK ERROR');
+            logger.error('Network Error while trying to send request');
             throw new Error('Ошибка при выполнении запроса');
         }
     }

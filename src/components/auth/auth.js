@@ -6,6 +6,7 @@ import { RegistrationUser } from '../registrationUser/registrationUser';
 import { Login } from '../login/login';
 import { router } from '../../router.js';
 import { Api } from '../../api/api.js';
+import { logger } from '../../utils/logger.js';
 
 export class Auth {
     #parent;
@@ -90,7 +91,6 @@ export class Auth {
                 await this.#api.login(store.auth.email, store.auth.password);
                 this.#login.remove();
                 store.page = 'catalog';
-                console.log('Перед переходом на catalog:', store);
                 router('catalog');
             } catch {
                 const error = document.querySelector('.form__error');
@@ -104,7 +104,6 @@ export class Auth {
      * Логика открытия предыдущих форм
      */
     #prevCallback = () => {
-        console.log(store.page);
         if (store.page === 'regEmail') {
             this.#regEmail.remove();
             router('catalog');
@@ -123,7 +122,6 @@ export class Auth {
             this.#login.remove();
         }
         store.page = this.#history.pop();
-
         this.render();
     };
 
@@ -131,6 +129,7 @@ export class Auth {
      * Очистка
      */
     remove() {
+        logger.info('Auth remove method called');
         this.self.remove();
     }
 
@@ -138,7 +137,7 @@ export class Auth {
      * Рендеринг формы
      */
     render() {
-        console.log('register form render');
+        logger.info('Auth render method called');
         if (this.self === null) {
             // eslint-disable-next-line no-undef
             const template = Handlebars.templates['auth/auth'];
