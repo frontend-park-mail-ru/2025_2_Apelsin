@@ -17,6 +17,7 @@ const MIME_TYPES = {
     svg: 'image/svg+xml',
 };
 
+// eslint-disable-next-line no-undef
 const STATIC_PATH = path.join(process.cwd(), './dist');
 
 const toBool = [() => true, () => false];

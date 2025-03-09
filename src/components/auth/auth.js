@@ -39,7 +39,7 @@ export class Auth {
         this.#history.push(store.page);
         if (store.page === 'regEmail' || store.page === 'auth') {
             this.#regEmail.remove();
-            console.log('FETCH');
+            logger.info('FETCH');
             try {
                 await this.#api.getUser(store.auth.email);
                 store.page = 'login';
@@ -105,7 +105,7 @@ export class Auth {
      * Логика открытия предыдущих форм
      */
     #prevCallback = () => {
-        console.log(store.page);
+        logger.info(store.page);
         if (store.page === 'regEmail' || store.page === 'auth' || store.page === undefined) {
             this.#regEmail.remove();
             router('catalog');
