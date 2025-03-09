@@ -1,7 +1,7 @@
 import { JobCard } from '../jobCard/jobCard';
 import './jobCatalog.css';
-import { store } from '../../store.js';
 import { Api } from '../../api/api.js';
+import { logger } from '../../utils/logger.js';
 
 export class JobCatalog {
     #parent;
@@ -28,6 +28,7 @@ export class JobCatalog {
      * Очистка
      */
     remove = () => {
+        logger.info('JobCatalog remove method called');
         this.self.remove();
     };
 
@@ -35,7 +36,7 @@ export class JobCatalog {
      * Рендеринг страницы
      */
     render = async () => {
-        console.log('После перехода в catalog:', store);
+        logger.info('JobCatalog render method called');
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates['jobCatalog/jobCatalog'];
         this.#parent.insertAdjacentHTML('beforeend', template());

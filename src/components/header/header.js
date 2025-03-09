@@ -2,6 +2,7 @@ import { store, resetStore } from '../../store';
 import './header.css';
 import { router } from '../../router.js';
 import { Api } from '../../api/api.js';
+import { logger } from '../../utils/logger.js';
 
 export class Header {
     #parent;
@@ -32,6 +33,7 @@ export class Header {
      * Очистка
      */
     remove = () => {
+        logger.info('Header remove method called');
         this.self.remove();
     };
 
@@ -106,27 +108,27 @@ export class Header {
                             router('catalog');
                         })
                         .catch(() => {
-                            console.log('ERROR');
+                            logger.error('Error occured while logging out');
                         });
                 });
             } else {
                 item.addEventListener('click', () => {
                     // тут пока заглушка
-                    console.log('Clicked menu item:', item.textContent);
+                    logger.info(`Clicked profile dropdown item: ${item.textContent}`);
                     this.toggleDropdown(false);
                 });
             }
         });
-
-        document.addEventListener('click', this.handleDocumentClick);
+        if (store.page === '') {
+            document.addEventListener('click', this.handleDocumentClick);
+        }
     };
 
     /**
      * Рендеринг компонента
      */
     render = () => {
-        console.log('header render');
-        console.log(store);
+        logger.info('Header render method called');
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates['header/header'];
         this.#parent.insertAdjacentHTML('beforeend', template(store));

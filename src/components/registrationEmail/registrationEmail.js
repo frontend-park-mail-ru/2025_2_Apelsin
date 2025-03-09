@@ -1,4 +1,5 @@
 import { store } from '../../store';
+import { logger } from '../../utils/logger.js';
 
 export class RegistrationEmail {
     #parent;
@@ -114,6 +115,7 @@ export class RegistrationEmail {
      * Очистка
      */
     remove = () => {
+        logger.info('RegistrationEmail remove method called');
         this.self.remove();
         document.querySelectorAll('.under_link').forEach((element) => {
             element.remove();
@@ -124,8 +126,7 @@ export class RegistrationEmail {
      * Рендеринг формы
      */
     render = () => {
-        console.log('registrationEmail form render');
-        console.log(store);
+        logger.info('RegistrationEmail render method called');
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates['registrationEmail/registrationEmail'];
         this.#parent.insertAdjacentHTML(
