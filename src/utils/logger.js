@@ -26,7 +26,7 @@ class Logger {
      * Создает экземпляр Logger.
      */
     constructor() {
-        this.#dev = import.meta.env.MODE === 'development';
+        this.#dev = this.#inDevelopment();
         this.#levels = {
             info: 1,
             warn: 2,
@@ -34,6 +34,15 @@ class Logger {
             debug: 4,
         };
         this.#currentLevel = this.#levels.info; // Уровень по умолчанию
+    }
+
+    /**
+     * Определяет, находится ли приложение в режиме разработки.
+     * @returns {boolean} - true, если режим разработки, иначе false.
+     */
+    #inDevelopment() {
+        // eslint-disable-next-line no-undef
+        import.meta.env?.DEV || process.env.NODE_ENV === 'development';
     }
 
     /**
