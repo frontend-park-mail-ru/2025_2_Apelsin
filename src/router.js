@@ -11,7 +11,6 @@ export const router = async (page = 'catalog') => {
     const app = document.getElementById('app');
     console.log(store);
     app.innerHTML = '';
-
     const header = new Header(app);
     header.render();
     if (page === 'auth') {

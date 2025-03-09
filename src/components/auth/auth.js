@@ -36,7 +36,7 @@ export class Auth {
      */
     #nextCallback = async () => {
         this.#history.push(store.page);
-        if (store.page === "regEmail") {
+        if (store.page === "regEmail" || store.page === "auth") {
             this.#regEmail.remove()
             console.log("FETCH")
             try {
