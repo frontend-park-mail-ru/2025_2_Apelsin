@@ -1,4 +1,4 @@
-import { store } from "../../store";
+import { store } from '../../store';
 
 export class RegistrationCompany {
     #parent;
@@ -25,7 +25,7 @@ export class RegistrationCompany {
      * @returns {HTMLElement}
      */
     get self() {
-        return document.forms["registration_company"]
+        return document.forms['registration_company'];
     }
 
     /**
@@ -33,74 +33,74 @@ export class RegistrationCompany {
      * @returns {boolean}
      */
     #companyValidate = () => {
-        const error = this.self.querySelector(".form__error")
+        const error = this.self.querySelector('.form__error');
         if (this.#companyName.validity.valid === false) {
-            error.hidden = false
-            error.textContent = "Минимальная длина названия компании 2 символа"
-            this.#companyName.classList.add("form__input_error")
-            return false
+            error.hidden = false;
+            error.textContent = 'Минимальная длина названия компании 2 символа';
+            this.#companyName.classList.add('form__input_error');
+            return false;
         } else {
-            this.#companyName.classList.remove("form__input_error")
-            this.#companyName.classList.add("form__valid")
+            this.#companyName.classList.remove('form__input_error');
+            this.#companyName.classList.add('form__valid');
         }
         if (this.#companyAddress.validity.valid === false) {
-            error.hidden = false
-            error.textContent = "Минимальная длина адреса компании 10 символов"
-            this.#companyAddress.classList.add("form__input_error")
-            return false
+            error.hidden = false;
+            error.textContent = 'Минимальная длина адреса компании 10 символов';
+            this.#companyAddress.classList.add('form__input_error');
+            return false;
         } else {
-            this.#companyAddress.classList.remove("form__input_error")
-            this.#companyAddress.classList.add("form__valid")
+            this.#companyAddress.classList.remove('form__input_error');
+            this.#companyAddress.classList.add('form__valid');
         }
-        error.hidden = true
-        return true
-    }
+        error.hidden = true;
+        return true;
+    };
 
     /**
      * Навешивание обработчиков событий
      */
     #addEventListeners = () => {
-        const form = this.self
-        this.#companyAddress = form.elements["company_address"]
-        this.#companyName = form.elements["company_name"]
-        this.#submitBtn = form.elements["submit"]
+        const form = this.self;
+        this.#companyAddress = form.elements['company_address'];
+        this.#companyName = form.elements['company_name'];
+        this.#submitBtn = form.elements['submit'];
 
-        form.querySelector(".form__back").addEventListener("click", this.#prevCallback)
-        this.#companyName.addEventListener("input", this.#companyValidate)
-        this.#companyAddress.addEventListener("input", this.#companyValidate)
-        this.#submitBtn.addEventListener("click", (e) => {
+        form.querySelector('.form__back').addEventListener('click', this.#prevCallback);
+        this.#companyName.addEventListener('input', this.#companyValidate);
+        this.#companyAddress.addEventListener('input', this.#companyValidate);
+        this.#submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (this.#companyValidate() === true) {
-                store.auth.companyName = this.#companyName.value
-                store.auth.companyAddress = this.#companyAddress.value
-                this.#nextCallback()
+                store.auth.companyName = this.#companyName.value;
+                store.auth.companyAddress = this.#companyAddress.value;
+                this.#nextCallback();
             }
-        })
-    }
+        });
+    };
 
     /**
      * Очистка
      */
     remove = () => {
         this.self.remove();
-    }
+    };
 
     /**
      * Рендеринг формы
      */
     render = () => {
-        console.log("register form render");
+        console.log('register form render');
         // eslint-disable-next-line no-undef
-        const template = Handlebars.templates["registrationCompany/registrationCompany"]
+        const template = Handlebars.templates['registrationCompany/registrationCompany'];
         this.#parent.insertAdjacentHTML(
-            "beforeend",
+            'beforeend',
             template({
-                "companyName": store.auth.companyName,
-                "companyAddress": store.auth.companyAddress,
-            })
+                companyName: store.auth.companyName,
+                companyAddress: store.auth.companyAddress,
+            }),
         );
         this.#addEventListeners();
 
         this.#companyName.focus();
-    }
+    };
 }

@@ -1,6 +1,6 @@
-import { JobCard } from "../jobCard/jobCard";
-import jobsMock from "./jobsMock";
-import "./jobsCatalog.css"
+import { JobCard } from '../jobCard/jobCard';
+import jobsMock from './jobsMock';
+import './jobsCatalog.css';
 
 export class Main {
     #parent;
@@ -14,7 +14,7 @@ export class Main {
     }
 
     get self() {
-        return document.getElementById("job_catalog_page")
+        return document.getElementById('job_catalog_page');
     }
 
     /**
@@ -22,22 +22,19 @@ export class Main {
      */
     remove = () => {
         this.self.remove();
-    }
+    };
 
     /**
      * Рендеринг формы
      */
     render = () => {
-        console.log("register form render");
+        console.log('register form render');
         // eslint-disable-next-line no-undef
-        const template = Handlebars.templates["main/main"]
-        this.#parent.insertAdjacentHTML(
-            "beforeend",
-            template()
-        );
+        const template = Handlebars.templates['main/main'];
+        this.#parent.insertAdjacentHTML('beforeend', template());
         for (const element of jobsMock) {
-            const card = new JobCard(this.self, element)
-            card.render()
+            const card = new JobCard(this.self, element);
+            card.render();
         }
-    }
+    };
 }

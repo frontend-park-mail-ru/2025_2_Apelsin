@@ -1,5 +1,5 @@
 #compiled
-./src/compiled.js
+/src/compiled.js
 *.zip
 
 # Logs

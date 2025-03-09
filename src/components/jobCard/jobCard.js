@@ -1,4 +1,4 @@
-import "./jobCard.css"
+import './jobCard.css';
 
 export class JobCard {
     #parent;
@@ -7,14 +7,14 @@ export class JobCard {
     /**
      * Конструктор класса
      * @param parent {HTMLElement} - родительский элемент
-     * @param props 
-     * {id: number, 
-     * profession: string, 
-     * salary: string, 
-     * company: string, 
-     * city: string, 
-     * badges: [{name: string}], 
-     * day_created: number, 
+     * @param props
+     * {id: number,
+     * profession: string,
+     * salary: string,
+     * company: string,
+     * city: string,
+     * badges: [{name: string}],
+     * day_created: number,
      * count: number} - данные для рендера
      */
     constructor(parent, props) {
@@ -27,7 +27,7 @@ export class JobCard {
      * @returns {HTMLElement}
      */
     get self() {
-        return document.getElementById(this.#props.id)
+        return document.getElementById(this.#props.id);
     }
 
     /**
@@ -35,20 +35,20 @@ export class JobCard {
      */
     remove = () => {
         this.self.remove();
-    }
+    };
 
     /**
      * Рендеринг компонента
      */
     render = () => {
-        console.log("register form render");
+        console.log('register form render');
         // eslint-disable-next-line no-undef
-        const template = Handlebars.templates["jobCard/jobCard"]
+        const template = Handlebars.templates['jobCard/jobCard'];
         this.#parent.insertAdjacentHTML(
-            "beforeend",
+            'beforeend',
             template({
-                'p': this.#props
-            })
+                p: this.#props,
+            }),
         );
-    }
+    };
 }
