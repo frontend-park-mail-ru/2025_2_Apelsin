@@ -8,13 +8,13 @@ const store = {
         firstName: '',
         lastName: '',
         companyName: '',
-        companyAddress: ''
+        companyAddress: '',
     },
     user: {
         authenticated: false,
         firstName: '',
         lastName: '',
-    }
+    },
 };
 
 // Начальное состояние store
@@ -28,7 +28,7 @@ const defaultStore = {
         firstName: '',
         lastName: '',
         companyName: '',
-        companyAddress: ''
+        companyAddress: '',
     },
     user: {
         authenticated: false,
@@ -36,8 +36,8 @@ const defaultStore = {
         firstName: '',
         lastName: '',
         companyName: '',
-        companyAddress: ''
-    }
+        companyAddress: '',
+    },
 };
 
 /**

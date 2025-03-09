@@ -1,5 +1,5 @@
 export class Api {
-    #baseUrl
+    #baseUrl;
 
     /**
      * Конструктор класса api - взаимодействие с бекендом
@@ -11,15 +11,15 @@ export class Api {
 
     /**
      * Базовый метод отправки запроса
-     * @param {string} endpoint 
-     * @param {string} method 
-     * @param {string|null} body 
-     * @returns 
+     * @param {string} endpoint
+     * @param {string} method
+     * @param {string|null} body
+     * @returns
      */
     async request(endpoint, method = 'GET', body = null) {
         const url = this.#baseUrl + endpoint;
-        const headers = new Headers()
-        headers.append('Content-Type', 'application/json')
+        const headers = new Headers();
+        headers.append('Content-Type', 'application/json');
 
         const init = {
             method,
@@ -28,19 +28,19 @@ export class Api {
             credentials: 'include',
             body: body !== null ? JSON.stringify(body) : null,
         };
-        console.log(url, init)
+        console.log(url, init);
         try {
             const response = await fetch(url, init);
             if (!response.ok) {
-                console.log("ERROR")
+                console.log('ERROR');
                 //Получаем json ошибки если есть. Если тела нету то пишем заглушку
                 const error = await response.json();
                 throw new Error(error.message || 'Ошибка при выполнении запроса');
             }
-    
+
             return response.json();
         } catch {
-            console.log("NETWORK ERROR")
+            console.log('NETWORK ERROR');
             throw new Error('Ошибка при выполнении запроса');
         }
     }
@@ -55,7 +55,7 @@ export class Api {
 
     /**
      * Регистрация аккаунта
-     * @param {Object} body 
+     * @param {Object} body
      * @returns {Object}
      */
     async register(body) {
@@ -64,17 +64,17 @@ export class Api {
 
     /**
      * Проверка использования почты. Если почта занята, то возвращается 200, иначе 400
-     * @param {string} email 
+     * @param {string} email
      * @returns {null}
      */
     async getUser(email) {
-        return this.request('/getUser', 'GET', {email})
+        return this.request('/getUser', 'GET', { email });
     }
 
     /**
      * Авторзация аккаунта
-     * @param {string} email 
-     * @param {string} password 
+     * @param {string} email
+     * @param {string} password
      * @returns {Object}
      */
     async login(login, password) {
@@ -86,7 +86,7 @@ export class Api {
      * @return {Object}
      */
     async auth() {
-        return this.request('/auth', 'GET')
+        return this.request('/auth', 'GET');
     }
 
     /**

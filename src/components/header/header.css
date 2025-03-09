@@ -32,7 +32,6 @@
     pointer-events: auto;
 }
 
-
 .header__link {
     font-size: 16px;
     cursor: pointer;
@@ -53,7 +52,7 @@
     padding: 10px;
     border: none;
     border-radius: 10px;
-    background-color: #333C43;
+    background-color: #333c43;
     color: #fff;
     font-size: 16px;
     user-select: none;
@@ -101,7 +100,7 @@
 }
 
 .header__dropdown__item--logout {
-    color: #F32526;
+    color: #f32526;
 }
 
 .header__dropdown__divider {

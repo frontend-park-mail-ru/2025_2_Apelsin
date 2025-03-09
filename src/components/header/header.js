@@ -1,7 +1,7 @@
-import {store, resetStore} from "../../store";
-import './header.css'
-import {router} from "../../router.js";
-import { Api } from "../../api/api.js";
+import { store, resetStore } from '../../store';
+import './header.css';
+import { router } from '../../router.js';
+import { Api } from '../../api/api.js';
 
 export class Header {
     #parent;
@@ -12,7 +12,6 @@ export class Header {
     #dropdownItems;
     #logoLink;
 
-
     /**
      * Конструктор класса
      * @param parent {HTMLElement} - родительский элемент
@@ -20,13 +19,13 @@ export class Header {
     constructor(parent) {
         this.#parent = parent;
     }
-    
+
     /**
      * Получение объекта. Это ленивая переменная - значение вычисляется при вызове
      * @returns {HTMLElement}
      */
     get self() {
-        return document.querySelector(".header")
+        return document.querySelector('.header');
     }
 
     /**
@@ -34,24 +33,24 @@ export class Header {
      */
     remove = () => {
         this.self.remove();
-    }
+    };
 
     /**
      * Обработчик клика на документе для закрытия дропдауна
      */
     handleDocumentClick = (e) => {
-        const profileElement = this.self.querySelector(".header__profile");
+        const profileElement = this.self.querySelector('.header__profile');
         if (profileElement && !profileElement.contains(e.target) && this.#dropdownVisible) {
             this.toggleDropdown(false);
         }
-    }
+    };
 
     /**
      * Переключение видимости дропдауна
      * @param {boolean|undefined} state - принудительное состояние (true - показать, false - скрыть)
      */
     toggleDropdown = (state) => {
-        const dropdown = this.self.querySelector(".header__dropdown");
+        const dropdown = this.self.querySelector('.header__dropdown');
         if (!dropdown) return;
 
         if (state !== undefined) {
@@ -60,78 +59,77 @@ export class Header {
             this.#dropdownVisible = !this.#dropdownVisible;
         }
 
-        dropdown.style.display = this.#dropdownVisible ? "block" : "none";
-    }
+        dropdown.style.display = this.#dropdownVisible ? 'block' : 'none';
+    };
 
     /**
      * Обработчики кнопок
      */
     addEventListeners = () => {
-        this.#loginButton = this.self.querySelector(".header__login");
-        this.#logoutButton = this.self.querySelector(".header__logout");
-        this.#profileIcon = this.self.querySelector(".header__profile-icon");
-        this.#dropdownItems = this.self.querySelectorAll(".header__dropdown__item");
-        this.#logoLink = this.self.querySelector(".header__name");
+        this.#loginButton = this.self.querySelector('.header__login');
+        this.#logoutButton = this.self.querySelector('.header__logout');
+        this.#profileIcon = this.self.querySelector('.header__profile-icon');
+        this.#dropdownItems = this.self.querySelectorAll('.header__dropdown__item');
+        this.#logoLink = this.self.querySelector('.header__name');
 
-        this.#logoLink.addEventListener("click", () => {
-            router("catalog");
+        this.#logoLink.addEventListener('click', () => {
+            router('catalog');
         });
 
         if (this.#loginButton) {
-            this.#loginButton.addEventListener("click", () => {
-                router("auth");
+            this.#loginButton.addEventListener('click', () => {
+                router('auth');
             });
         }
 
         if (this.#logoutButton) {
-            this.#logoutButton.addEventListener("click", () => {
-                router("catalog")
+            this.#logoutButton.addEventListener('click', () => {
+                router('catalog');
             });
         }
 
         if (this.#profileIcon) {
-            this.#profileIcon.addEventListener("click", (e) => {
+            this.#profileIcon.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.toggleDropdown();
             });
         }
 
-        this.#dropdownItems.forEach(item => {
-            if (item.classList.contains("header__dropdown__item--logout")) {
-                item.addEventListener("click", () => {
+        this.#dropdownItems.forEach((item) => {
+            if (item.classList.contains('header__dropdown__item--logout')) {
+                item.addEventListener('click', () => {
                     this.toggleDropdown(false);
-                    const api = new Api()
-                    api.logout().then(() => {
-                        resetStore()
-                        router("catalog");
-                    }).catch(() => {
-                        console.log("ERROR")
-                    })
+                    const api = new Api();
+                    api.logout()
+                        .then(() => {
+                            resetStore();
+                            router('catalog');
+                        })
+                        .catch(() => {
+                            console.log('ERROR');
+                        });
                 });
             } else {
-                item.addEventListener("click", () => {
+                item.addEventListener('click', () => {
                     // тут пока заглушка
-                    console.log("Clicked menu item:", item.textContent);
+                    console.log('Clicked menu item:', item.textContent);
                     this.toggleDropdown(false);
                 });
             }
         });
 
-        document.addEventListener("click", this.handleDocumentClick);
+        document.addEventListener('click', this.handleDocumentClick);
     };
 
     /**
      * Рендеринг компонента
      */
     render = () => {
-        console.log("header render");
-        console.log(store)
+        console.log('header render');
+        console.log(store);
         // eslint-disable-next-line no-undef
-        const template = Handlebars.templates["header/header"]
-        this.#parent.insertAdjacentHTML(
-            "beforeend",
-            template(store)
-        );
+        const template = Handlebars.templates['header/header'];
+        this.#parent.insertAdjacentHTML('beforeend', template(store));
         this.addEventListeners();
-    }
+    };
 }
