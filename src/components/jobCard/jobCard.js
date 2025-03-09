@@ -1,4 +1,5 @@
 import './jobCard.css';
+import { logger } from '../../utils/logger.js';
 
 export class JobCard {
     #parent;
@@ -34,6 +35,7 @@ export class JobCard {
      * Очистка
      */
     remove = () => {
+        logger.info('JobCard remove method called');
         this.self.remove();
     };
 
@@ -41,7 +43,7 @@ export class JobCard {
      * Рендеринг компонента
      */
     render = () => {
-        console.log('register form render');
+        logger.info('JobCard render method called');
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates['jobCard/jobCard'];
         this.#parent.insertAdjacentHTML(
