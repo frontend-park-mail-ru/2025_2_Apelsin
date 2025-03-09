@@ -1,5 +1,5 @@
 let store = {
-    page: 'regEmail',
+    page: '',
     auth: {
         isEmployer: false,
         email: '',
