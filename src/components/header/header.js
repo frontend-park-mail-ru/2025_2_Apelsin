@@ -106,6 +106,8 @@ export class Header {
                             router('catalog');
                         })
                         .catch(() => {
+                            resetStore();
+                            router('catalog');
                             console.log('ERROR');
                         });
                 });
