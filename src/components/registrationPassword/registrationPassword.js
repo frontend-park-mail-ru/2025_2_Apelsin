@@ -1,5 +1,6 @@
 import './registrationPassword.css';
 import { store } from '../../store';
+import { logger } from '../../utils/logger.js';
 
 export class RegistrationPassword {
     #parent;
@@ -155,6 +156,7 @@ export class RegistrationPassword {
      * Очистка
      */
     remove = () => {
+        logger.info('RegistrationPassword remove method called');
         this.self.remove();
     };
 
@@ -162,8 +164,7 @@ export class RegistrationPassword {
      * Рендеринг формы
      */
     render = () => {
-        console.log('registrationPassword form render');
-        console.log(store);
+        logger.info('RegistrationPassword render method called');
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates['registrationPassword/registrationPassword'];
         this.#parent.insertAdjacentHTML(

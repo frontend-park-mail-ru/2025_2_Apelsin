@@ -1,6 +1,7 @@
 import * as fs from 'node:fs';
 import * as http from 'node:http';
 import * as path from 'node:path';
+import { logger } from '../src/utils/logger.js';
 
 const PORT = 5173;
 
@@ -39,7 +40,7 @@ http.createServer(async (req, res) => {
     const mimeType = MIME_TYPES[file.ext] || MIME_TYPES.default;
     res.writeHead(statusCode, { 'Content-Type': mimeType });
     file.stream.pipe(res);
-    console.log(`${req.method} ${req.url} ${statusCode}`);
+    logger.info(`${req.method} ${req.url} ${statusCode}`);
 }).listen(PORT);
 
-console.log(`Server running at http://127.0.0.1:${PORT}/`);
+logger.info(`Server running at http://127.0.0.1:${PORT}/`);

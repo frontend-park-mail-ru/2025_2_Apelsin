@@ -1,4 +1,5 @@
 import { store } from '../../store';
+import { logger } from '../../utils/logger.js';
 
 /**
  * @class
@@ -132,7 +133,6 @@ export class Login {
 
         this.#submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
-            console.log(store);
             if (this.#passwordValidate() === true) {
                 store.auth.password = this.#password.value;
                 store.user.authenticated = true;
@@ -145,6 +145,7 @@ export class Login {
      * Очистка
      */
     remove = () => {
+        logger.info('Login remove method called');
         this.self.remove();
     };
 
@@ -152,8 +153,7 @@ export class Login {
      * Рендеринг формы
      */
     render = () => {
-        console.log('login form render');
-        console.log(store);
+        logger.info('Login render method called');
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates['login/login'];
         this.#parent.insertAdjacentHTML(

@@ -1,4 +1,5 @@
 import { store } from '../../store';
+import { logger } from '../../utils/logger.js';
 
 export class RegistrationCompany {
     #parent;
@@ -82,6 +83,7 @@ export class RegistrationCompany {
      * Очистка
      */
     remove = () => {
+        logger.info('RegistrationCompany remove method called');
         this.self.remove();
     };
 
@@ -89,7 +91,7 @@ export class RegistrationCompany {
      * Рендеринг формы
      */
     render = () => {
-        console.log('register form render');
+        logger.info('RegistrationCompany render method called');
         // eslint-disable-next-line no-undef
         const template = Handlebars.templates['registrationCompany/registrationCompany'];
         this.#parent.insertAdjacentHTML(
