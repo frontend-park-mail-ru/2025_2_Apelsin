@@ -135,7 +135,6 @@ export class Login {
             e.preventDefault();
             if (this.#passwordValidate() === true) {
                 store.auth.password = this.#password.value;
-                store.user.authenticated = true;
                 this.#nextCallback();
             }
         });
