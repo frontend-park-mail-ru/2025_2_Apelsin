@@ -91,6 +91,7 @@ export class Auth {
             try {
                 await this.#api.login({ email: store.auth.email, password: store.auth.password });
                 this.#login.remove();
+                store.user.authenticated = true;
                 store.page = 'catalog';
                 router('catalog');
             } catch {

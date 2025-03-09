@@ -42,7 +42,7 @@ class Logger {
      */
     #inDevelopment() {
         // eslint-disable-next-line no-undef
-        import.meta.env?.DEV || process.env.NODE_ENV === 'development';
+        return import.meta.env?.DEV || process.env.NODE_ENV === 'development';
     }
 
     /**

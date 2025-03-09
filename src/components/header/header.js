@@ -12,6 +12,7 @@ export class Header {
     #profileIcon;
     #dropdownItems;
     #logoLink;
+    #createButton;
 
     /**
      * Конструктор класса
@@ -68,6 +69,7 @@ export class Header {
      * Обработчики кнопок
      */
     addEventListeners = () => {
+        this.#createButton = this.self.querySelector('.header__button');
         this.#loginButton = this.self.querySelector('.header__login');
         this.#logoutButton = this.self.querySelector('.header__logout');
         this.#profileIcon = this.self.querySelector('.header__profile-icon');
@@ -94,6 +96,14 @@ export class Header {
             this.#profileIcon.addEventListener('click', (e) => {
                 e.stopPropagation();
                 this.toggleDropdown();
+            });
+        }
+
+        if (this.#createButton) {
+            this.#createButton.addEventListener('click', () => {
+                if (store.user.authenticated === false) {
+                    router('auth');
+                }
             });
         }
 
