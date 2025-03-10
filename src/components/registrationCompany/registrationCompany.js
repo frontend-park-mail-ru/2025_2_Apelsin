@@ -34,6 +34,14 @@ export class RegistrationCompany {
      * @returns {boolean}
      */
     #companyValidate = () => {
+        return this.#companyNameValidate() && this.#companyAddressValidate();
+    };
+
+    /**
+     * Валидация имени компании
+     * @returns {boolean}
+     */
+    #companyNameValidate = () => {
         const error = this.self.querySelector('.form__error');
         if (this.#companyName.validity.valid === false) {
             error.hidden = false;
@@ -43,7 +51,17 @@ export class RegistrationCompany {
         } else {
             this.#companyName.classList.remove('form__input_error');
             this.#companyName.classList.add('form__valid');
+            error.hidden = true;
         }
+        return true;
+    };
+
+    /**
+     * Валидация адреса компании
+     * @returns {boolean}
+     */
+    #companyAddressValidate = () => {
+        const error = this.self.querySelector('.form__error');
         if (this.#companyAddress.validity.valid === false) {
             error.hidden = false;
             error.textContent = 'Минимальная длина адреса компании 10 символов';
@@ -52,8 +70,8 @@ export class RegistrationCompany {
         } else {
             this.#companyAddress.classList.remove('form__input_error');
             this.#companyAddress.classList.add('form__valid');
+            error.hidden = true;
         }
-        error.hidden = true;
         return true;
     };
 
@@ -67,8 +85,8 @@ export class RegistrationCompany {
         this.#submitBtn = form.elements['submit'];
 
         form.querySelector('.form__back').addEventListener('click', this.#prevCallback);
-        this.#companyName.addEventListener('input', this.#companyValidate);
-        this.#companyAddress.addEventListener('input', this.#companyValidate);
+        this.#companyName.addEventListener('input', this.#companyNameValidate);
+        this.#companyAddress.addEventListener('input', this.#companyAddressValidate);
         this.#submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (this.#companyValidate() === true) {
