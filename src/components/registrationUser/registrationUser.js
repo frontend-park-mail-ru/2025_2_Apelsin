@@ -34,6 +34,14 @@ export class RegistrationUser {
      * @returns {boolean}
      */
     #companyValidate = () => {
+        return this.#firstNameValidate() && this.#lastNameValidate();
+    };
+
+    /**
+     * Валидация имени
+     * @returns {boolean}
+     */
+    #firstNameValidate = () => {
         const error = this.self.querySelector('.form__error');
         if (this.#firstName.validity.valid === false) {
             error.hidden = false;
@@ -43,7 +51,17 @@ export class RegistrationUser {
         } else {
             this.#firstName.classList.remove('form__input_error');
             this.#firstName.classList.add('form__valid');
+            error.hidden = true;
         }
+        return true;
+    };
+
+    /**
+     * Валидация фамилии
+     * @returns {boolean}
+     */
+    #lastNameValidate = () => {
+        const error = this.self.querySelector('.form__error');
         if (this.#lastName.validity.valid === false) {
             error.hidden = false;
             error.textContent = 'Введите фамилию';
@@ -52,8 +70,8 @@ export class RegistrationUser {
         } else {
             this.#lastName.classList.remove('form__input_error');
             this.#lastName.classList.add('form__valid');
+            error.hidden = true;
         }
-        error.hidden = true;
         return true;
     };
 
@@ -67,8 +85,8 @@ export class RegistrationUser {
         this.#submitBtn = form.elements['submit'];
 
         form.querySelector('.form__back').addEventListener('click', this.#prevCallback);
-        this.#firstName.addEventListener('input', this.#companyValidate);
-        this.#lastName.addEventListener('input', this.#companyValidate);
+        this.#firstName.addEventListener('input', this.#firstNameValidate);
+        this.#lastName.addEventListener('input', this.#lastNameValidate);
         this.#submitBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (this.#companyValidate() === true) {
