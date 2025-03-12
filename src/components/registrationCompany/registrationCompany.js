@@ -1,5 +1,6 @@
 import { store } from '../../store';
 import { logger } from '../../utils/logger.js';
+import { validateString } from '../../utils/inputValidation.js';
 
 export class RegistrationCompany {
     #parent;
@@ -30,6 +31,36 @@ export class RegistrationCompany {
     }
 
     /**
+     * Проверяет корректность названия компании
+     * @param {string} name
+     * @returns {boolean}
+     */
+    #isValidCompanyName = (name) => {
+        const allowedChars = new Set(
+            'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' + // Латиница
+                'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ' + // Кириллица
+                ' -', // Пробел и дефис
+        );
+
+        return validateString(name, { minLength: 2, allowedChars: allowedChars });
+    };
+
+    /**
+     * Проверяет корректность адреса компании
+     * @param {string} address
+     * @returns {boolean}
+     */
+    #isValidCompanyAddress = (address) => {
+        const allowedChars = new Set(
+            'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' + // Латиница
+                'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ' + // Кириллица
+                '0123456789., -', // Цифры, запятые, точки, пробелы и дефис
+        );
+
+        return validateString(address, { minLength: 10, allowedChars: allowedChars });
+    };
+
+    /**
      * Валидация введенных данных
      * @returns {boolean}
      */
@@ -43,7 +74,7 @@ export class RegistrationCompany {
      */
     #companyNameValidate = () => {
         const error = this.self.querySelector('.form__error');
-        if (this.#companyName.validity.valid === false) {
+        if (!this.#isValidCompanyName(this.#companyName.value)) {
             error.hidden = false;
             error.textContent = 'Минимальная длина названия компании 2 символа';
             this.#companyName.classList.add('form__input_error');
@@ -62,7 +93,7 @@ export class RegistrationCompany {
      */
     #companyAddressValidate = () => {
         const error = this.self.querySelector('.form__error');
-        if (this.#companyAddress.validity.valid === false) {
+        if (!this.#isValidCompanyAddress(this.#companyAddress.value)) {
             error.hidden = false;
             error.textContent = 'Минимальная длина адреса компании 10 символов';
             this.#companyAddress.classList.add('form__input_error');

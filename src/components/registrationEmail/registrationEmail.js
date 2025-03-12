@@ -7,6 +7,7 @@ export class RegistrationEmail {
     #submitBtn;
     #nextCallback;
     #prevCallback;
+
     /**
      * Конструктор класса
      * @param parent {HTMLElement} - родительский элемент
@@ -69,7 +70,8 @@ export class RegistrationEmail {
      */
     #emailValidate = () => {
         const error = this.self.querySelector('.form__error');
-        if (this.#email.validity.valid === false) {
+
+        if (this.#email.validity.valid === false || this.#email.value.includes('-')) {
             error.hidden = false;
             error.textContent = 'Напишите валидный адрес почты';
             this.#email.classList.add('form__input_error');

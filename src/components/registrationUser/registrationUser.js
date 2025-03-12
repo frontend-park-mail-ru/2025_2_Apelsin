@@ -1,5 +1,6 @@
 import { store } from '../../store';
 import { logger } from '../../utils/logger.js';
+import { validateString } from '../../utils/inputValidation.js';
 
 export class RegistrationUser {
     #parent;
@@ -30,6 +31,21 @@ export class RegistrationUser {
     }
 
     /**
+     * Проверяет корректность имени или фамилии
+     * @param {string} name
+     * @returns {boolean}
+     */
+    #isValidName = (name) => {
+        const allowedChars = new Set(
+            'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ' + // Латиница
+                'абвгдеёжзийклмнопрстуфхцчшщъыьэюяАБВГДЕЁЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯ' + // Кириллица
+                ' -', // Пробел и дефис
+        );
+
+        return validateString(name, { minLength: 2, allowedChars: allowedChars });
+    };
+
+    /**
      * Валидация введенных данных
      * @returns {boolean}
      */
@@ -43,9 +59,10 @@ export class RegistrationUser {
      */
     #firstNameValidate = () => {
         const error = this.self.querySelector('.form__error');
-        if (this.#firstName.validity.valid === false) {
+
+        if (!this.#isValidName(this.#firstName.value)) {
             error.hidden = false;
-            error.textContent = 'Введите имя';
+            error.textContent = 'Введите корректное имя (только буквы, пробелы и дефис)';
             this.#firstName.classList.add('form__input_error');
             return false;
         } else {
@@ -62,9 +79,9 @@ export class RegistrationUser {
      */
     #lastNameValidate = () => {
         const error = this.self.querySelector('.form__error');
-        if (this.#lastName.validity.valid === false) {
+        if (!this.#isValidName(this.#lastName.value)) {
             error.hidden = false;
-            error.textContent = 'Введите фамилию';
+            error.textContent = 'Введите корректную фамилию (только буквы, пробелы и дефис)';
             this.#lastName.classList.add('form__input_error');
             return false;
         } else {
