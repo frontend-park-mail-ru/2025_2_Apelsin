@@ -1,7 +1,18 @@
 import { logger } from '../utils/logger.js';
 
+interface Register {
+    isEmployer: boolean;
+    email: string;
+    password: string;
+    repeatPassword: string;
+    firstName: string;
+    lastName: string;
+    companyName: string;
+    companyAddress: string;
+}
+
 export class Api {
-    #baseUrl;
+    readonly #baseUrl;
 
     /**
      * Конструктор класса api - взаимодействие с бекендом
@@ -18,12 +29,12 @@ export class Api {
      * @param {string|null} body
      * @returns
      */
-    async request(endpoint, method = 'GET', body = null) {
+    async request(endpoint: string, method : string = 'GET', body: unknown = null) {
         const url = this.#baseUrl + endpoint;
         const headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        const init = {
+        const init: RequestInit = {
             method,
             headers,
             mode: 'cors',
@@ -60,7 +71,7 @@ export class Api {
      * @param {Object} body
      * @returns {Object}
      */
-    async register(body) {
+    async register(body : Register) {
         return this.request('/signup', 'POST', body);
     }
 
@@ -69,7 +80,7 @@ export class Api {
      * @param {string} email
      * @returns {null}
      */
-    async getUser(email) {
+    async getUser(email: string) {
         return this.request('/check-email', 'POST', { email });
     }
 
@@ -79,7 +90,7 @@ export class Api {
      * @param {string} password
      * @returns {Object}
      */
-    async login(body) {
+    async login(body: { email: string; password: string; }) {
         return this.request('/signin', 'POST', body);
     }
 
